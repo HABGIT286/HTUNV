@@ -10,8 +10,7 @@
         :root {
             --primary: #6c5ce7; --secondary: #00cec9; --accent: #fd79a8;
             --warning: #ffeaa7; --danger: #ff7675; --success: #00b894;
-            --dark-bg: #0f0c29; --glass-bg: rgba(255,255,255,0.05);
-            --glass-border: rgba(255,255,255,0.1);
+            --glass-bg: rgba(255,255,255,0.05); --glass-border: rgba(255,255,255,0.1);
             --text-glow: 0 0 10px rgba(255,255,255,0.5);
         }
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, sans-serif; outline: none; }
@@ -21,17 +20,14 @@
             display: flex; justify-content: center; align-items: center; position: relative;
         }
         #particles-js { position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 0; }
-        .glow-orb {
-            position: absolute; border-radius: 50%; filter: blur(80px); z-index: 0;
-            animation: floatOrb 10s infinite alternate;
-        }
+        .glow-orb { position: absolute; border-radius: 50%; filter: blur(80px); z-index: 0; animation: floatOrb 10s infinite alternate; }
         .orb-1 { width: 300px; height: 300px; background: var(--primary); top: -50px; left: -50px; opacity: 0.4; }
         .orb-2 { width: 400px; height: 400px; background: var(--secondary); bottom: -100px; right: -100px; opacity: 0.3; animation-delay: -5s; }
+        .orb-3 { width: 200px; height: 200px; background: var(--accent); top: 40%; left: 60%; opacity: 0.2; animation-duration: 15s; }
         @keyframes floatOrb { 0% { transform: translate(0,0); } 100% { transform: translate(30px,50px); } }
-        
-        .container { position: relative; z-index: 10; width: 90%; max-width: 600px; }
+        .container { position: relative; z-index: 10; width: 90%; max-width: 600px; perspective: 1000px; }
         .card {
-            background: var(--glass-bg); backdrop-filter: blur(16px);
+            background: var(--glass-bg); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
             border: 1px solid var(--glass-border); border-radius: 20px; padding: 30px;
             box-shadow: 0 15px 35px rgba(0,0,0,0.5); animation: slideUp 0.8s ease-out;
             position: relative; overflow: hidden;
@@ -43,28 +39,20 @@
         }
         .card:hover::before { left: 100%; }
         @keyframes slideUp { from { opacity: 0; transform: translateY(50px); } to { opacity: 1; transform: translateY(0); } }
-        
         .login-header { text-align: center; margin-bottom: 30px; }
         .login-header i {
             font-size: 3rem; background: linear-gradient(45deg, var(--secondary), var(--primary));
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;            animation: pulse 2s infinite;
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            margin-bottom: 10px; animation: pulseIcon 2s infinite;
         }
-        @keyframes pulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.1); } }
-        
+        @keyframes pulseIcon { 0%,100% { transform: scale(1); } 50% { transform: scale(1.1); } }
         .input-group { position: relative; margin-bottom: 20px; }
-        .input-group i {
-            position: absolute; top: 50%; right: 15px; transform: translateY(-50%);
-            color: var(--secondary); transition: 0.3s;
-        }
-        .input-group input {
+        .input-group i { position: absolute; top: 50%; right: 15px; transform: translateY(-50%); color: var(--secondary); transition: 0.3s; }        .input-group input {
             width: 100%; padding: 15px 50px 15px 15px; background: rgba(0,0,0,0.3);
-            border: 1px solid var(--glass-border); border-radius: 12px; color: #fff; font-size: 1rem;
+            border: 1px solid var(--glass-border); border-radius: 12px; color: #fff; font-size: 1rem; transition: 0.3s;
         }
-        .input-group input:focus {
-            border-color: var(--secondary); box-shadow: 0 0 15px rgba(0,206,201,0.3);
-        }
+        .input-group input:focus { border-color: var(--secondary); box-shadow: 0 0 15px rgba(0,206,201,0.3); }
         .input-group input:focus + i { color: var(--accent); }
-        
         .btn-main {
             width: 100%; padding: 15px; background: linear-gradient(45deg, var(--primary), var(--secondary));
             border: none; border-radius: 12px; color: #fff; font-size: 1.1rem; font-weight: bold;
@@ -73,65 +61,43 @@
         }
         .btn-main:hover { transform: translateY(-3px); box-shadow: 0 8px 25px rgba(108,92,231,0.6); }
         .btn-main:active { transform: scale(0.98); }
-        
         #dashboardSection { display: none; max-width: 800px; }
-        .user-info-header {
-            display: flex; justify-content: space-between; align-items: center;
-            margin-bottom: 25px; border-bottom: 1px solid var(--glass-border); padding-bottom: 15px;
-        }
+        .user-info-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; padding-bottom: 15px; border-bottom: 1px solid var(--glass-border); }
         .status-badge {
             padding: 5px 15px; border-radius: 20px; font-size: 0.9rem; font-weight: bold;
             background: rgba(0,184,148,0.2); color: var(--success); border: 1px solid var(--success);
             animation: glowStatus 2s infinite;
         }
         @keyframes glowStatus { 0%,100% { box-shadow: 0 0 5px var(--success); } 50% { box-shadow: 0 0 15px var(--success); } }
-        
-        .stats-grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 15px; margin-bottom: 25px;
-        }
-        .stat-box {
-            background: rgba(255,255,255,0.03); padding: 15px; border-radius: 15px;
-            text-align: center; border: 1px solid var(--glass-border); transition: 0.3s;
-        }
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; margin-bottom: 25px; }
+        .stat-box { background: rgba(255,255,255,0.03); padding: 15px; border-radius: 15px; text-align: center; border: 1px solid var(--glass-border); transition: 0.3s; }
         .stat-box:hover { background: rgba(255,255,255,0.08); transform: translateY(-5px); }
-        .stat-value {
-            font-size: 1.5rem; font-weight: bold; color: var(--secondary);            margin: 5px 0; text-shadow: var(--text-glow);
-        }
+        .stat-value { font-size: 1.5rem; font-weight: bold; color: var(--secondary); margin: 5px 0; text-shadow: var(--text-glow); }
         .stat-label { font-size: 0.85rem; color: rgba(255,255,255,0.7); }
-        
         .details-list { list-style: none; }
-        .details-list li {
-            display: flex; justify-content: space-between; padding: 12px 0;
-            border-bottom: 1px dashed rgba(255,255,255,0.1); font-size: 0.95rem;
-        }
+        .details-list li { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px dashed rgba(255,255,255,0.1); font-size: 0.95rem; }
         .details-list li:last-child { border-bottom: none; }
         .details-list span.label { color: rgba(255,255,255,0.6); }
         .details-list span.value { color: #fff; font-weight: 500; direction: ltr; text-align: left; }
-        
         .countdown-container {
             background: linear-gradient(45deg, rgba(255,118,117,0.1), rgba(255,193,7,0.1));
-            border: 1px solid rgba(255,193,7,0.3); border-radius: 15px;
-            padding: 20px; text-align: center; margin-bottom: 25px; display: none;
+            border: 1px solid rgba(255,193,7,0.3); border-radius: 15px; padding: 20px;
+            text-align: center; margin-bottom: 25px; display: none;
         }
         .countdown-timer { display: flex; justify-content: center; gap: 15px; margin-top: 10px; }
         .time-box { background: rgba(0,0,0,0.4); padding: 10px; border-radius: 10px; min-width: 60px; }
         .time-val { font-size: 1.5rem; font-weight: bold; color: var(--danger); }
         .time-label { font-size: 0.7rem; color: rgba(255,255,255,0.6); }
-        
         .tg-btn {
             background: #0088cc; color: white; text-decoration: none; padding: 10px 20px;
             border-radius: 8px; display: inline-flex; align-items: center; gap: 8px;
             font-weight: bold; transition: 0.3s; margin-top: 10px;
         }
         .tg-btn:hover { background: #0099e6; box-shadow: 0 0 15px rgba(0,136,204,0.5); }
-        
         .logout-btn {
             background: transparent; border: 1px solid var(--danger); color: var(--danger);
-            padding: 8px 15px; border-radius: 8px; cursor: pointer; transition: 0.3s;
-        }
+            padding: 8px 15px; border-radius: 8px; cursor: pointer; transition: 0.3s;        }
         .logout-btn:hover { background: var(--danger); color: white; }
-        
         .message-box {
             position: fixed; top: 20px; left: 50%; transform: translateX(-50%);
             padding: 15px 30px; border-radius: 50px; z-index: 100; font-weight: bold;
@@ -141,45 +107,37 @@
         .msg-success { background: rgba(0,184,148,0.9); color: white; }
         .msg-warning { background: rgba(255,193,7,0.9); color: #333; }
         @keyframes slideDown { from { top: -50px; opacity: 0; } to { top: 20px; opacity: 1; } }
-        
         .loader {
             border: 4px solid rgba(255,255,255,0.1); border-left-color: var(--secondary);
             border-radius: 50%; width: 30px; height: 30px; animation: spin 1s linear infinite;
-            display: inline-block; vertical-align: middle; margin-left: 10px; display: none;        }
+            display: inline-block; vertical-align: middle; margin-left: 10px; display: none;
+        }
         @keyframes spin { 100% { transform: rotate(360deg); } }
-        
         .debug-panel {
-            background: rgba(0,0,0,0.5); border: 1px solid var(--glass-border);
-            border-radius: 10px; padding: 15px; margin-top: 20px; font-size: 0.8rem;
-            color: #00cec9; max-height: 200px; overflow-y: auto; display: none;
+            background: rgba(0,0,0,0.5); border: 1px solid var(--glass-border); border-radius: 10px;
+            padding: 15px; margin-top: 20px; font-size: 0.8rem; color: #00cec9;
+            max-height: 200px; overflow-y: auto; display: none; direction: ltr; text-align: left;
         }
         .debug-panel pre { white-space: pre-wrap; word-wrap: break-word; margin: 0; }
         .debug-toggle {
-            background: transparent; border: 1px solid var(--glass-border);
-            color: rgba(255,255,255,0.5); padding: 5px 10px; border-radius: 5px;
-            cursor: pointer; font-size: 0.8rem; margin-top: 10px;
+            background: transparent; border: 1px solid var(--glass-border); color: rgba(255,255,255,0.5);
+            padding: 5px 10px; border-radius: 5px; cursor: pointer; font-size: 0.8rem; margin-top: 10px;
         }
         .debug-toggle:hover { background: rgba(255,255,255,0.1); color: #fff; }
-        
-        .profile-img {
-            width: 100px; height: 100px; border-radius: 50%; margin: 0 auto 20px;
-            border: 3px solid var(--secondary); object-fit: cover;
-            box-shadow: 0 0 20px rgba(0,206,201,0.5); display: none;
-        }
     </style>
 </head>
 <body>
     <div id="particles-js"></div>
-    <div class="glow-orb orb-1"></div><div class="glow-orb orb-2"></div>
+    <div class="glow-orb orb-1"></div><div class="glow-orb orb-2"></div><div class="glow-orb orb-3"></div>
     <div id="messageBox" class="message-box"></div>
-    
     <div class="container">
+        
         <!-- تسجيل الدخول -->
         <div class="card" id="loginSection">
             <div class="login-header">
                 <i class="fas fa-satellite-dish"></i>
                 <h2>EarthLink Portal</h2>
-                <p style="color: rgba(255,255,255,0.6); font-size: 0.9rem;">بوابة إدارة الاشتراكات الذكية</p>
+                <p style="color:rgba(255,255,255,0.6);font-size:0.9rem;">بوابة إدارة الاشتراكات الذكية</p>
             </div>
             <form id="loginForm">
                 <div class="input-group">
@@ -187,18 +145,16 @@
                     <i class="fas fa-user"></i>
                 </div>
                 <div class="input-group">
-                    <input type="password" id="password" placeholder="كلمة المرور" required>
-                    <i class="fas fa-lock"></i>
+                    <input type="password" id="password" placeholder="كلمة المرور" required>                    <i class="fas fa-lock"></i>
                 </div>
                 <button type="submit" class="btn-main">
                     <span id="btnText">تسجيل الدخول</span>
                     <div class="loader" id="loginLoader"></div>
                 </button>
-            </form>            <button class="debug-toggle" onclick="toggleDebug()">
-                <i class="fas fa-bug"></i> عرض بيانات التجربة (Debug)
-            </button>
+            </form>
+            <button class="debug-toggle" onclick="toggleDebug()"><i class="fas fa-bug"></i> عرض البيانات (Debug)</button>
             <div class="debug-panel" id="debugPanel"><pre id="debugContent">بانتظار تسجيل الدخول...</pre></div>
-            <div style="text-align: center; margin-top: 20px; font-size: 0.85rem; color: rgba(255,255,255,0.5);">
+            <div style="text-align:center;margin-top:20px;font-size:0.85rem;color:rgba(255,255,255,0.5);">
                 <i class="fas fa-shield-alt"></i> اتصال آمن مع سيرفرات EarthLink
             </div>
         </div>
@@ -208,91 +164,95 @@
             <div class="user-info-header">
                 <div>
                     <h3 id="dashUserName">مرحباً، المستخدم</h3>
-                    <span class="status-badge" id="dashStatus">نشط</span>
+                    <span class="status-badge" id="dashStatus">-</span>
                 </div>
                 <button class="logout-btn" onclick="logout()"><i class="fas fa-sign-out-alt"></i> خروج</button>
             </div>
-            
-            <img id="profileImg" class="profile-img" src="" alt="Profile">
-            
+
+            <!-- تنبيه الانتهاء -->
             <div class="countdown-container" id="expiryWarning">
-                <h4 style="color: var(--danger); margin-bottom: 10px;">
-                    <i class="fas fa-exclamation-triangle"></i> تنبيه: الاشتراك يوشك على الانتهاء!
-                </h4>
+                <h4 style="color:var(--danger);margin-bottom:10px;"><i class="fas fa-exclamation-triangle"></i> تنبيه: الاشتراك يوشك على الانتهاء!</h4>
                 <div class="countdown-timer">
                     <div class="time-box"><div class="time-val" id="cdDays">00</div><div class="time-label">يوم</div></div>
                     <div class="time-box"><div class="time-val" id="cdHours">00</div><div class="time-label">ساعة</div></div>
                     <div class="time-box"><div class="time-val" id="cdMinutes">00</div><div class="time-label">دقيقة</div></div>
                 </div>
-                <p style="font-size: 0.8rem; margin-top: 10px; color: rgba(255,255,255,0.7);">
-                    🔔 سيتم إشعارك تلقائياً عند اقتراب الانتهاء
-                </p>
+                <p style="font-size:0.8rem;margin-top:10px;color:rgba(255,255,255,0.7);">سيتم إشعارك تلقائياً عند اقتراب الانتهاء</p>
             </div>
 
+            <!-- الإحصائيات -->
             <div class="stats-grid">
                 <div class="stat-box">
-                    <i class="fas fa-coins" style="color: var(--warning); font-size: 1.5rem;"></i>
+                    <i class="fas fa-coins" style="color:var(--warning);font-size:1.5rem;"></i>
                     <div class="stat-value" id="statPrice">-</div>
                     <div class="stat-label">سعر الاشتراك</div>
                 </div>
                 <div class="stat-box">
-                    <i class="fas fa-calendar-check" style="color: var(--success); font-size: 1.5rem;"></i>
+                    <i class="fas fa-calendar-check" style="color:var(--success);font-size:1.5rem;"></i>
                     <div class="stat-value" id="statDays">-</div>
                     <div class="stat-label">أيام متبقية</div>
                 </div>
                 <div class="stat-box">
-                    <i class="fas fa-wifi" style="color: var(--secondary); font-size: 1.5rem;"></i>
-                    <div class="stat-value" id="statType">-</div>
-                    <div class="stat-label">نوع الباقة</div>                </div>
+                    <i class="fas fa-wifi" style="color:var(--secondary);font-size:1.5rem;"></i>
+                    <div class="stat-value" id="statType">-</div>                    <div class="stat-label">نوع الباقة</div>
+                </div>
             </div>
 
-            <h4 style="margin-bottom: 15px; color: var(--secondary); border-right: 3px solid var(--secondary); padding-right: 10px;">تفاصيل الحساب</h4>
+            <!-- التفاصيل -->
+            <h4 style="margin-bottom:15px;color:var(--secondary);border-right:3px solid var(--secondary);padding-right:10px;">تفاصيل الحساب</h4>
             <ul class="details-list">
-                <li><span class="label">الاسم الكامل</span><span class="value" id="detName">جاري التحميل...</span></li>
-                <li><span class="label">اسم المستخدم (ID)</span><span class="value" id="detUserID">جاري التحميل...</span></li>
-                <li><span class="label">تاريخ الانتهاء</span><span class="value" id="detExpDate">جاري التحميل...</span></li>
-                <li><span class="label">عنوان IP</span><span class="value" id="detIP">جاري التحميل...</span></li>
-                <li><span class="label">رقم الهاتف</span><span class="value" id="detPhone">جاري التحميل...</span></li>
-                <li><span class="label">الوكيل</span><span class="value" id="detAgent">جاري التحميل...</span></li>
-                <li><span class="label">المدينة</span><span class="value" id="detCity">جاري التحميل...</span></li>
-                <li><span class="label">البريد الإلكتروني</span><span class="value" id="detEmail">جاري التحميل...</span></li>
+                <li><span class="label">👤 الاسم الكامل</span><span class="value" id="detName">-</span></li>
+                <li><span class="label">🆔 اسم المستخدم</span><span class="value" id="detUserID">-</span></li>
+                <li><span class="label">👥 اسم الوكيل</span><span class="value" id="detAgent">-</span></li>
+                <li><span class="label">📅 تاريخ الانتهاء</span><span class="value" id="detExpDate">-</span></li>
+                <li><span class="label">⏳ الأيام المتبقية</span><span class="value" id="detDaysLeft">-</span></li>
+                <li><span class="label">🌐 عنوان IP</span><span class="value" id="detIP">-</span></li>
+                <li><span class="label">📱 رقم الهاتف</span><span class="value" id="detPhone">-</span></li>
+                <li><span class="label">📍 العنوان</span><span class="value" id="detAddress">-</span></li>
+                <li><span class="label">📧 البريد الإلكتروني</span><span class="value" id="detEmail">-</span></li>
+                <li><span class="label">🏙️ المدينة</span><span class="value" id="detCity">-</span></li>
             </ul>
 
-            <div style="text-align: center; margin-top: 25px; padding-top: 20px; border-top: 1px solid var(--glass-border);">
-                <p style="margin-bottom: 10px; font-size: 0.9rem;">🔔 تنبيهات تليجرام التلقائية</p>
-                <p style="font-size: 0.85rem; color: rgba(255,255,255,0.7); margin-bottom: 10px;">
-                    سيتم إرسال تنبيه لك عبر تليجرام قبل انتهاء الاشتراك بيوم واحد
-                </p>
-                <a href="https://t.me/MOTRXVIP" target="_blank" class="tg-btn">
-                    <i class="fab fa-telegram-plane"></i> تفعيل التنبيهات
-                </a>
+            <div style="text-align:center;margin-top:25px;padding-top:20px;border-top:1px solid var(--glass-border);">
+                <p style="margin-bottom:10px;font-size:0.9rem;">هل تريد تنبيهات عبر تليجرام؟</p>
+                <a href="https://t.me/MOTRXVIP" target="_blank" class="tg-btn"><i class="fab fa-telegram-plane"></i> تواصل مع المطور</a>
             </div>
 
-            <button class="debug-toggle" onclick="toggleDebug()" style="width: 100%; margin-top: 15px;">
-                <i class="fas fa-code"></i> عرض البيانات الخام (Debug)
-            </button>
+            <button class="debug-toggle" onclick="toggleDebug()" style="width:100%;margin-top:15px;"><i class="fas fa-code"></i> عرض البيانات الخام</button>
             <div class="debug-panel" id="debugPanelDash"><pre id="debugContentDash">بانتظار البيانات...</pre></div>
         </div>
     </div>
 
     <script>
-        // ==================== إعدادات API (نفس كود البوت) ====================
-        const API_BASE = "https://ubapi.earthlink.iq/api/user";
-        const HEADERS_TEMPLATE = {
-            'accept': '*/*',
-            'accept-language': 'ar-EG,ar;q=0.9,en-US;q=0.8,en;q=0.7',
-            'content-type': 'application/json; charset=utf-8',
-            'origin': 'https://user.earthlink.iq',
-            'referer': 'https://user.earthlink.iq/',
-            'user-agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36',
-        };
+        // ==================== إعدادات API - مطابق للكود الجديد ====================
+        const API_BASE = "https://ubapi.earthlink.iq";
+        const DATA_ENDPOINT = `${API_BASE}/api/user/GetUserDataAr`;
         
+        // Headers مطابق تماماً للكود الذي يعمل
+        function getHeaders(token) {
+            return {
+                'authority': 'ubapi.earthlink.iq',
+                'accept': '*/*',
+                'accept-language': 'ar-EG,ar;q=0.9,en-US;q=0.8,en;q=0.7',
+                'authorization': `bearer ${token}`,  // lowercase "bearer" كما في الكود الأصلي
+                'content-type': 'application/json; charset=utf-8',
+                'origin': 'https://user.earthlink.iq',
+                'referer': 'https://user.earthlink.iq/',
+                'sec-ch-ua': '"Chromium";v="139", "Not;A=Brand";v="99"',
+                'sec-ch-ua-mobile': '?0',
+                'sec-ch-ua-platform': '"Linux"',
+                'sec-fetch-dest': 'empty',
+                'sec-fetch-mode': 'cors',
+                'sec-fetch-site': 'same-site',                'user-agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36'
+            };
+        }
+
         const STORAGE_KEY = "earthlink_session";
         let debugMode = false;
-        let notificationSent = false;
 
         // ==================== التهيئة ====================
-        document.addEventListener('DOMContentLoaded', () => {            initParticles();
+        document.addEventListener('DOMContentLoaded', () => {
+            initParticles();
             checkSession();
             requestNotificationPermission();
         });
@@ -301,12 +261,19 @@
             particlesJS('particles-js', {
                 particles: {
                     number: { value: 60, density: { enable: true, value_area: 800 } },
-                    color: { value: "#ffffff" }, opacity: { value: 0.3, random: true },
+                    color: { value: "#ffffff" },
+                    shape: { type: "circle" },
+                    opacity: { value: 0.3, random: true },
                     size: { value: 3, random: true },
                     line_linked: { enable: true, distance: 150, color: "#6c5ce7", opacity: 0.2, width: 1 },
-                    move: { enable: true, speed: 2 }
+                    move: { enable: true, speed: 2, direction: "none", random: false, straight: false, out_mode: "out", bounce: false }
                 },
-                interactivity: { events: { onhover: { enable: true, mode: "repulse" } } }
+                interactivity: {
+                    detect_on: "canvas",
+                    events: { onhover: { enable: true, mode: "repulse" }, onclick: { enable: true, mode: "push" }, resize: true },
+                    modes: { repulse: { distance: 100, duration: 0.4 } }
+                },
+                retina_detect: true
             });
         }
 
@@ -325,10 +292,9 @@
         function logDebug(data, panel = 'debugContent') {
             if (debugMode) {
                 document.getElementById(panel).textContent = JSON.stringify(data, null, 2);
-            }
-        }
+            }        }
 
-        // ==================== تسجيل الدخول (نفس منطق البوت) ====================
+        // ==================== تسجيل الدخول ====================
         document.getElementById('loginForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             const username = document.getElementById('username').value.trim();
@@ -340,33 +306,31 @@
             loader.style.display = "inline-block";
 
             try {
-                // نفس كود البوت: محتوى التطبيق كـ JSON
-                const response = await fetch(`${API_BASE}/Token`, {                    method: 'POST',
-                    headers: {
-                        ...HEADERS_TEMPLATE,
-                        'Content-Type': 'application/x-www-form-urlencoded',
-                    },
-                    body: new URLSearchParams({
-                        'grant_type': 'password',
-                        'username': username,
-                        'password': password,
-                        'Logintype': '0'
-                    })
+                // تسجيل الدخول للحصول على التوكن
+                const formData = new URLSearchParams();
+                formData.append('grant_type', 'password');
+                formData.append('username', username);
+                formData.append('password', password);
+                formData.append('Logintype', '0');
+
+                const response = await fetch(`${API_BASE}/api/user/Token`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                    body: formData
                 });
 
                 const responseData = await response.json();
                 logDebug({ status: response.status, response: responseData }, 'debugContent');
 
                 if (response.ok && responseData.access_token) {
-                    const session = {
+                    localStorage.setItem(STORAGE_KEY, JSON.stringify({
                         token: responseData.access_token,
                         username: username,
                         timestamp: Date.now()
-                    };
-                    localStorage.setItem(STORAGE_KEY, JSON.stringify(session));
+                    }));
                     
                     showMessage("✅ تم تسجيل الدخول بنجاح!", "success");
-                    loadUserData(session.token);
+                    setTimeout(() => loadUserData(responseData.access_token), 500);
                 } else {
                     throw new Error(responseData.error_description || responseData.message || "بيانات الدخول غير صحيحة");
                 }
@@ -377,108 +341,113 @@
             } finally {
                 btnText.textContent = "تسجيل الدخول";
                 loader.style.display = "none";
-            }
-        });
+            }        });
 
-        // ==================== جلب بيانات المستخدم (نفس منطق البوت) ====================
-        async function loadUserData(token, isRefresh = false) {
-            if (!isRefresh) {
-                document.getElementById('loginSection').style.display = 'none';
-                document.getElementById('dashboardSection').style.display = 'block';
-            }
+        // ==================== جلب بيانات المستخدم ====================
+        async function loadUserData(token) {
+            document.getElementById('loginSection').style.display = 'none';
+            document.getElementById('dashboardSection').style.display = 'block';
 
-            // حالة التحميل
-            ['detName','detUserID','detExpDate','detIP','detPhone','detAgent','detCity','detEmail'].forEach(id => {
+            // عرض "جاري التحميل"
+            ['detName','detUserID','detAgent','detExpDate','detDaysLeft','detIP','detPhone','detAddress','detEmail','detCity'].forEach(id => {
                 document.getElementById(id).textContent = "جاري التحميل...";
             });
-            try {
-                // نفس Headers المستخدمة في البوت
-                const headers = {
-                    ...HEADERS_TEMPLATE,
-                    'authorization': `bearer ${token}`  // lowercase "bearer" كما في البوت
-                };
 
-                console.log('📤 Fetching user data with headers:', headers);
+            try {
+                console.log('📤 Fetching user data with new headers...');
                 
-                const response = await fetch(`${API_BASE}/GetUserDataAr`, {
+                const response = await fetch(DATA_ENDPOINT, {
                     method: 'GET',
-                    headers: headers
+                    headers: getHeaders(token)
                 });
 
                 console.log('📥 Response status:', response.status);
                 
                 if (!response.ok) {
-                    if (response.status === 401) { logout(); return; }
-                    throw new Error(`HTTP ${response.status}`);
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
                 }
 
                 const data = await response.json();
-                console.log('✅ User ', data);
-                
+                console.log('✅ Data received:', Object.keys(data));
                 logDebug(data, 'debugContentDash');
-                localStorage.setItem('earthlink_data', JSON.stringify(data));
-                
+
                 displayUserData(data);
                 checkExpiryNotification(data);
 
             } catch (error) {
-                console.error('Dashboard Error:', error);
-                if (!isRefresh) {
-                    showMessage(`❌ ${error.message}`, "error");
-                    showDemoData();
-                }
+                console.error('❌ Dashboard error:', error);
+                showMessage(`❌ ${error.message}\n💡 جرب إضافة CORS في المتصفح`, "error");
+                logDebug({ error: error.message, stack: error.stack }, 'debugContentDash');
+                showDemoData();
             }
         }
 
-        // ==================== عرض البيانات (نفس منطق البوت) ====================
+        // ==================== عرض البيانات - مطابق لهيكل JSON الجديد ====================
         function displayUserData(data) {
-            // دالة مساعدة لاستخراج القيم (نفس منطق البوت)
-            const getVal = (path) => {
-                const keys = path.split('.');
-                let val = data;
-                for (let k of keys) {
-                    if (val && val[k] !== undefined) val = val[k];
-                    else return '-';
-                }                return val?.value || val || '-';
+            console.log('📊 Displaying data...');
+            
+            // دالة مساعدة لاستخراج .value من الهيكل الجديد
+            const getVal = (key) => {
+                if (data[key] && data[key].value !== undefined && data[key].value !== null) {
+                    return data[key].value;
+                }                return '-';
             };
 
-            // عرض الصورة إذا وجدت
-            const imgPath = data.accountImagePath?.value;
-            if (imgPath) {
-                const img = document.getElementById('profileImg');
-                img.src = imgPath;
-                img.style.display = 'block';
-            }
-
-            // تعبئة البيانات (نفس الحقول في البوت)
-            document.getElementById('dashUserName').textContent = `مرحباً، ${getVal('fullName')}`;
-            document.getElementById('statPrice').textContent = `${getVal('accountPrice')} د.ع`;
+            // تعبئة البيانات
+            const fullName = getVal('fullName');
+            document.getElementById('dashUserName').textContent = `مرحباً، ${fullName}`;
+            document.getElementById('statPrice').textContent = getVal('accountPrice');
             document.getElementById('statType').textContent = getVal('accountName');
             document.getElementById('statDays').textContent = getVal('activeDaysLeft');
             
+            // الحالة مع لون
             const status = getVal('accountStatus');
             document.getElementById('dashStatus').textContent = status;
-            if (String(status).toLowerCase().includes('نشط') || String(status).toLowerCase().includes('active')) {
-                document.getElementById('dashStatus').style.background = 'rgba(0,184,148,0.2)';
-                document.getElementById('dashStatus').style.color = '#00b894';
-                document.getElementById('dashStatus').style.borderColor = '#00b894';
+            const statusEl = document.getElementById('dashStatus');
+            if (status.includes('فعال') || status.toLowerCase().includes('active')) {
+                statusEl.style.background = 'rgba(0,184,148,0.2)';
+                statusEl.style.color = '#00b894';
+                statusEl.style.borderColor = '#00b894';
             } else {
-                document.getElementById('dashStatus').style.background = 'rgba(255,118,117,0.2)';
-                document.getElementById('dashStatus').style.color = '#ff7675';
-                document.getElementById('dashStatus').style.borderColor = '#ff7675';
+                statusEl.style.background = 'rgba(255,118,117,0.2)';
+                statusEl.style.color = '#ff7675';
+                statusEl.style.borderColor = '#ff7675';
             }
 
-            // جميع الحقول كما في البوت
-            document.getElementById('detName').textContent = getVal('fullName');
+            // التفاصيل الكاملة
+            document.getElementById('detName').textContent = fullName;
             document.getElementById('detUserID').textContent = getVal('userID');
+            document.getElementById('detAgent').textContent = getVal('agentName');
             document.getElementById('detExpDate').textContent = getVal('accountExpirationDate');
+            document.getElementById('detDaysLeft').textContent = getVal('activeDaysLeft');
             document.getElementById('detIP').textContent = getVal('userIP');
             document.getElementById('detPhone').textContent = getVal('mobileNumber');
-            document.getElementById('detAgent').textContent = getVal('agentName');
-            document.getElementById('detCity').textContent = getVal('city');
-            document.getElementById('detEmail').textContent = getVal('email');
+            document.getElementById('detAddress').textContent = getVal('address') || '-';
+            document.getElementById('detEmail').textContent = getVal('email') || '-';
+            document.getElementById('detCity').textContent = getVal('city') || '-';
 
-            console.log('✅ Data displayed');
+            console.log('✅ UI updated successfully');
+        }
+
+        // ==================== بيانات تجريبية ====================
+        function showDemoData() {
+            const demo = {
+                accountImagePath: { value: "https://user.earthlink.iq/accountImages/138.png" },
+                accountPrice: { value: "35,000 IQD" },
+                accountStatus: { value: "فعال" },
+                accountName: { value: "Plus" },
+                fullName: { value: "بيانات تجريبية" },
+                userID: { value: "demo_user" },
+                agentName: { value: "EarthLink" },
+                accountExpirationDate: { value: "05/04/2026 10:19:49 ص" },                activeDaysLeft: { value: "14" },
+                userIP: { value: "100.119.255.233" },
+                mobileNumber: { value: "07725624087" },
+                address: { value: "بغداد، العراق" },
+                email: { value: "user@example.com" },
+                city: { value: "بغداد" }
+            };
+            displayUserData(demo);
+            showMessage("⚠️ عرض تجريبي - تحقق من اتصال API", "warning");
         }
 
         // ==================== نظام التنبيه التلقائي ====================
@@ -486,91 +455,75 @@
             const expDateStr = data.accountExpirationDate?.value;
             if (!expDateStr) return;
 
-            const expDate = new Date(expDateStr);
-            const now = new Date();
-            const diffTime = expDate - now;            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+            // تحويل التاريخ من صيغة "05/04/2026 10:19:49 ص"
+            try {
+                const parts = expDateStr.split(' ');
+                const datePart = parts[0]; // "05/04/2026"
+                const timePart = parts[1]; // "10:19:49"
+                const ampm = parts[2]; // "ص" أو "م"
+                
+                const [day, month, year] = datePart.split('/').map(Number);
+                const [hours, minutes, seconds] = timePart.split(':').map(Number);
+                
+                let hours24 = hours;
+                if (ampm === 'م' && hours !== 12) hours24 += 12;
+                if (ampm === 'ص' && hours === 12) hours24 = 0;
+                
+                const expDate = new Date(year, month - 1, day, hours24, minutes, seconds);
+                const now = new Date();
+                const diffTime = expDate - now;
+                const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
 
-            // إذا بقي يوم واحد فقط ولم نرسل تنبيه بعد
-            if (diffDays === 1 && !notificationSent) {
-                showExpiryWarning(diffTime);
-                sendNotification("⚠️ تنبيه عاجل", `اشتراكك في EarthLink سينتهي غداً! (${expDateStr})`);
-                notificationSent = true;
-            } else if (diffDays <= 0) {
-                document.getElementById('dashStatus').textContent = "منتهي الصلاحية ⛔";
-                document.getElementById('dashStatus').style.background = 'rgba(255,118,117,0.2)';
-                document.getElementById('dashStatus').style.color = '#ff7675';
+                console.log(`📅 Expiry: ${expDateStr} | Days left: ${diffDays}`);
+
+                if (diffDays <= 1 && diffDays > 0) {
+                    showExpiryWarning(diffTime);
+                    sendBrowserNotification("⚠️ تنبيه عاجل", `اشتراكك في EarthLink سينتهي غداً!`);
+                } else if (diffDays <= 0) {
+                    document.getElementById('dashStatus').textContent = "منتهي الصلاحية ⛔";
+                    document.getElementById('dashStatus').style.background = 'rgba(255,118,117,0.2)';
+                    document.getElementById('dashStatus').style.color = '#ff7675';
+                }
+            } catch (e) {
+                console.error('Date parsing error:', e);
             }
         }
-
         function showExpiryWarning(timeRemaining) {
             const warningBox = document.getElementById('expiryWarning');
             warningBox.style.display = 'block';
 
-            const timerInterval = setInterval(() => {
+            const timer = setInterval(() => {
                 const now = new Date();
                 const distance = timeRemaining - (now - new Date());
+                
                 if (distance < 0) {
-                    clearInterval(timerInterval);
+                    clearInterval(timer);
                     warningBox.innerHTML = "<h4 style='color:red'>⛔ انتهت الصلاحية</h4>";
                     return;
                 }
+
                 const days = Math.floor(distance / (1000*60*60*24));
                 const hours = Math.floor((distance % (1000*60*60*24)) / (1000*60*60));
                 const minutes = Math.floor((distance % (1000*60*60)) / (1000*60));
-                document.getElementById('cdDays').innerText = days.toString().padStart(2,'0');
-                document.getElementById('cdHours').innerText = hours.toString().padStart(2,'0');
-                document.getElementById('cdMinutes').innerText = minutes.toString().padStart(2,'0');
-                timeRemaining = distance;
+
+                document.getElementById('cdDays').textContent = String(days).padStart(2,'0');
+                document.getElementById('cdHours').textContent = String(hours).padStart(2,'0');
+                document.getElementById('cdMinutes').textContent = String(minutes).padStart(2,'0');
             }, 1000);
         }
 
-        function sendNotification(title, body) {
-            // تنبيه المتصفح
+        function sendBrowserNotification(title, body) {
+            const lastCheck = localStorage.getItem('earthlink_last_notify');
+            const now = Date.now();
+            if (lastCheck && (now - lastCheck) < 6 * 60 * 60 * 1000) return;
+
             if (Notification.permission === "granted") {
                 new Notification(title, {
                     body: body,
                     icon: "https://cdn-icons-png.flaticon.com/512/5968/5968866.png"
                 });
+                localStorage.setItem('earthlink_last_notify', now);
             }
-            // تنبيه صوتي
-            try {
-                const audio = new Audio('data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLHPM8uqZVQwqT3q85KpNEh5/T8f03o5YDyVJYq7g6qFRCyRHU5Xb7qBODR9DTY3W65dMChhCRH7M4M6fUAoWNT9YsN7hnEoIDjM4Uq3a55pJAQ0wNk6q1+SVRwAILC1LqNTllEQACy0tSqnT5JNCAAsuLUmp0eOPQwALLC1JqdDjjUEACywtSanP441BAAsrLUmpzuOLQQALLC1Jqc3ji0EACystSanM44tBAAsrLUmpy+OLQQALLC1Jqcrji0EACystSanJ44tBAAsrLUmpyeOLQQALLC1Jqcjji0EACystSanH44tBAAsrLUmpx+OLQQALLC1Jqcbji0EACystSanF44tBAAsrLUmpxeOLQQALLC1JqcTji0EACystSanE44tBAAsrLUmpxOOLQQALLC1JqcTji0EACystSanE44tBAAsrLUmpxOOLQQALLC1JqcTji0EACystSanE44tBAAsrLUmpxOOLQQALLC1JqcTji0EACystSanE44tBAAsrLUmpxOOLQQALLC1JqcTji0EACystSanE44tBAAsrLUmpxOOLQQALLC1JqcTji0EACystSanE44tBAAsrLUmpxOOLQQALLC1JqcTji0EACystSanE44tBAAsrLUmpxOOLQQALLC1JqcTji0EACystSanE44tBAAsrLUmpxOOLQQALLC1JqcTji0EACystSanE44tBAAsrLUmpxOOLQQALLC1JqcTji0EACystSanE44tBAAsrLUmpxOOLQQALLC1JqcTji0EACystSanE44tBAAsrLUmpxOOLQQALLC1JqcTji0EACystSanE44tBAAsrLUmpxOOLQQALLC1JqcTji0EACystSanE44tBAAsrLUmpxOOLQQALLC1JqcTji0EACystSanE44tBAAsrLUmpxOOLQQALLC1JqcTji0EACystSanE44tBAAsrLUmpxOOLQQALLC1JqcTji0EACystSanE44tBAAsrLUmpxOOLQQALLC1JqcTji0EACystSanE44tBAAsrLUmpxOOLQQALLC1JqcTji0EACystSanE44tBAAsrLUmpxOOLQQALLC1JqcTji0EACystSanE44tBAAsrLUmpxOOLQQALLC1JqcTji0EACystSanE44tBAAsrLUmpxOOLQQ......This is getting too long. Let me finish the code properly with a shorter notification sound approach.
-</think>
-
-```javascript                // تشغيل صوت تنبيه بسيط
-                const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-                const oscillator = audioCtx.createOscillator();
-                const gainNode = audioCtx.createGain();
-                oscillator.connect(gainNode);
-                gainNode.connect(audioCtx.destination);
-                oscillator.frequency.value = 800;
-                oscillator.type = 'sine';
-                gainNode.gain.value = 0.3;
-                oscillator.start();
-                setTimeout(() => { oscillator.stop(); }, 300);
-            } catch(e) {}
-            
-            console.log('🔔 Notification:', body);
-        }
-
-        // ==================== بيانات تجريبية (للعرض عند فشل الاتصال) ====================
-        function showDemoData() {
-            const demo = {
-                fullName: { value: "بيانات تجريبية" },
-                userID: { value: "DEMO-001" },
-                accountPrice: { value: "25,000" },
-                accountStatus: { value: "نشط ✅" },
-                accountName: { value: "باقة شهرية" },
-                activeDaysLeft: { value: "15" },
-                accountExpirationDate: { value: new Date(Date.now() + 15*24*60*60*1000).toISOString() },
-                userIP: { value: "185.46.212.XX" },
-                mobileNumber: { value: "+964 7XX XXX XXXX" },
-                agentName: { value: "EarthLink Iraq" },
-                city: { value: "بغداد" },
-                email: { value: "user@example.com" }
-            };
-            displayUserData(demo);
-            showMessage("⚠️ عرض تجريبي (تحقق من اتصال API)", "warning");
         }
 
         // ==================== إدارة الجلسة ====================
@@ -585,10 +538,8 @@
                 }
             }
         }
-
-        function logout() {            localStorage.removeItem(STORAGE_KEY);
-            localStorage.removeItem('earthlink_data');
-            notificationSent = false;
+        function logout() {
+            localStorage.removeItem(STORAGE_KEY);
             location.reload();
         }
 
@@ -597,25 +548,8 @@
             box.textContent = text;
             box.className = `message-box msg-${type}`;
             box.style.display = 'block';
-            setTimeout(() => box.style.display = 'none', 4000);
+            setTimeout(() => box.style.display = 'none', 5000);
         }
     </script>
 </body>
 </html>
-```
-
----
-
-## ✅ ما تم تعديله ليطابق كود البوت:
-
-| العنصر | في البوت | في HTML |
-|--------|----------|---------|
-| **Headers** | `HEADERS_TEMPLATE` مع origin/referer/user-agent | ✅ نفس الـ Headers تماماً |
-| **الـ Authorization** | `f"bearer {token}"` (صغير) | ✅ `bearer ${token}` (صغير) |
-| **نوع المحتوى** | `application/json; charset=utf-8` | ✅ نفس القيمة |
-| **الحقول المعروضة** | 12 حقل (بما فيها city, email) | ✅ جميع الحقول مضافة |
-| **عرض الصورة** | من `accountImagePath.value` | ✅ نفس المنطق |
-
----
-
-## 🔔 نظام التنبيه التلقائي:
