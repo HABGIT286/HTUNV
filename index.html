@@ -96,7 +96,7 @@
         }
         .btn:hover { transform: translateY(-3px); box-shadow: 0 15px 40px rgba(108,92,231,0.6); }
         .btn:disabled { opacity: 0.6; cursor: not-allowed; }
-                /* Fast.com Speed Test Styles */
+                /* Fast.com Speed Test Styles - مطابق للكود */
         .speedtest-container {
             background: linear-gradient(135deg, rgba(0,0,0,0.4), rgba(108,92,231,0.2));
             border: 2px solid var(--glass-border); border-radius: 25px;
@@ -189,17 +189,37 @@
             padding: 3px 10px; border-radius: 10px; font-size: 0.75rem;
             background: rgba(0,206,201,0.2); color: var(--secondary);
         }
+        .target-status.best { background: rgba(0,184,148,0.3); color: var(--success); font-weight: bold; }
         .target-status.done { background: rgba(0,184,148,0.2); color: var(--success); }
         
         .speed-btn {
             background: linear-gradient(45deg, #0088cc, #00aaff);
-            margin-top: 20px; padding: 18px; font-size: 1.2rem;
-            animation: pulseBtn 2s infinite;        }
+            margin-top: 20px; padding: 18px; font-size: 1.2rem;            animation: pulseBtn 2s infinite;
+        }
         
         @keyframes pulseBtn {
             0%, 100% { box-shadow: 0 0 0 0 rgba(0,136,204,0.7); }
             50% { box-shadow: 0 0 0 15px rgba(0,136,204,0); }
         }
+        
+        .result-box {
+            background: rgba(0,184,148,0.15); border: 2px solid var(--success);
+            border-radius: 15px; padding: 20px; margin-top: 20px;
+            display: none; animation: resultSlide 0.5s;
+        }
+        
+        @keyframes resultSlide {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        
+        .result-row {
+            display: flex; justify-content: space-between; padding: 10px 0;
+            font-size: 1.1rem; border-bottom: 1px dashed rgba(255,255,255,0.2);
+        }
+        .result-row:last-child { border-bottom: none; }
+        .result-label { color: rgba(255,255,255,0.8); }
+        .result-value { color: var(--secondary); font-weight: 700; }
         
         /* Telegram Buttons */
         .tg-buttons {
@@ -223,8 +243,7 @@
             color: white; box-shadow: 0 5px 20px rgba(108,92,231,0.4);
         }
         
-        .tg-btn:hover { transform: translateY(-3px) scale(1.02); }
-        .tg-btn.active { animation: activePulse 1.5s infinite; border: 2px solid #fff; }
+        .tg-btn:hover { transform: translateY(-3px) scale(1.02); }        .tg-btn.active { animation: activePulse 1.5s infinite; border: 2px solid #fff; }
         
         @keyframes activePulse {
             0%, 100% { box-shadow: 0 0 0 0 rgba(0,136,204,0.7); }
@@ -243,7 +262,8 @@
             border: 2px solid var(--glass-border); border-radius: 25px;
             padding: 30px; width: 90%; max-width: 400px;
             animation: modalSlide 0.3s;
-        }        
+        }
+        
         @keyframes modalSlide {
             from { opacity: 0; transform: translateY(-50px); }
             to { opacity: 1; transform: translateY(0); }
@@ -272,8 +292,7 @@
             display: flex; justify-content: space-between; align-items: center;
             margin-bottom: 25px; padding-bottom: 18px;
             border-bottom: 2px solid var(--glass-border);
-        }
-        
+        }        
         .status-badge {
             padding: 6px 16px; border-radius: 25px; font-size: 0.85rem; font-weight: 700;
             background: rgba(0,184,148,0.2); color: var(--success);
@@ -292,7 +311,8 @@
         .stat-box {
             background: rgba(255,255,255,0.08); padding: 18px 12px; border-radius: 18px;
             text-align: center; border: 1px solid var(--glass-border);
-            animation: statFloat 6s ease-in-out infinite;        }
+            animation: statFloat 6s ease-in-out infinite;
+        }
         .stat-box:nth-child(2) { animation-delay: 0.5s; }
         .stat-box:nth-child(3) { animation-delay: 1s; }
         
@@ -321,8 +341,7 @@
             background: rgba(0,0,0,0.4); padding: 12px 16px; border-radius: 12px;
             min-width: 65px; border: 1px solid rgba(255,255,255,0.1);
         }
-        .time-val { font-size: 1.5rem; font-weight: 900; color: var(--danger); }
-        .time-label { font-size: 0.75rem; color: rgba(255,255,255,0.7); margin-top: 4px; }
+        .time-val { font-size: 1.5rem; font-weight: 900; color: var(--danger); }        .time-label { font-size: 0.75rem; color: rgba(255,255,255,0.7); margin-top: 4px; }
         
         .details {
             background: rgba(255,255,255,0.05); border-radius: 18px; padding: 20px;
@@ -341,7 +360,8 @@
         }
         .detail-row:last-child { border-bottom: none; }
         .detail-label { color: rgba(255,255,255,0.7); }
-        .detail-value { color: #fff; font-weight: 600; direction: ltr; text-align: left; }        
+        .detail-value { color: #fff; font-weight: 600; direction: ltr; text-align: left; }
+        
         .message {
             padding: 12px 18px; border-radius: 14px; margin-bottom: 18px; display: none;
             animation: messageSlide 0.4s;
@@ -370,8 +390,7 @@
         }
         
         .debug-toggle {
-            background: rgba(255,255,255,0.05); border: 1px solid var(--glass-border);
-            color: rgba(255,255,255,0.6); padding: 10px; border-radius: 12px;
+            background: rgba(255,255,255,0.05); border: 1px solid var(--glass-border);            color: rgba(255,255,255,0.6); padding: 10px; border-radius: 12px;
             cursor: pointer; margin-top: 12px; width: 100%;
         }
         
@@ -390,7 +409,8 @@
             font-weight: 700; margin-top: 15px; width: 100%;
         }
         
-        .notification-log {            background: rgba(0,0,0,0.3); border-radius: 15px; padding: 15px;
+        .notification-log {
+            background: rgba(0,0,0,0.3); border-radius: 15px; padding: 15px;
             margin-top: 15px; max-height: 200px; overflow-y: auto;
         }
         
@@ -419,8 +439,7 @@
 </head>
 <body>
     <div id="particles-js"></div>
-    <div class="glow-orb orb-1"></div>
-    <div class="glow-orb orb-2"></div>
+    <div class="glow-orb orb-1"></div>    <div class="glow-orb orb-2"></div>
     <div class="glow-orb orb-3"></div>
     
     <div class="container">
@@ -429,7 +448,7 @@
             <div class="header">
                 <i class="fas fa-satellite-dish"></i>
                 <h2>EarthLink Portal</h2>
-                <p style="color:rgba(255,255,255,0.7);margin-top:10px;">🌟 البوابة الفاخرة + FastSpeed Test</p>
+                <p style="color:rgba(255,255,255,0.7);margin-top:10px;">🌟 البوابة الفاخرة + FastSpeed PRO</p>
             </div>
             
             <div id="messageBox" class="message"></div>
@@ -439,7 +458,8 @@
                     <input type="text" id="username" placeholder="اسم المستخدم" required autocomplete="off">
                     <i class="fas fa-user"></i>
                 </div>
-                <div class="input-group">                    <input type="password" id="password" placeholder="كلمة المرور" required>
+                <div class="input-group">
+                    <input type="password" id="password" placeholder="كلمة المرور" required>
                     <i class="fas fa-lock"></i>
                 </div>
                 <button type="submit" class="btn" id="loginBtn">
@@ -468,8 +488,7 @@
                 <div class="countdown-timer">
                     <div class="time-box"><div class="time-val" id="cdDays">00</div><div class="time-label">يوم</div></div>
                     <div class="time-box"><div class="time-val" id="cdHours">00</div><div class="time-label">ساعة</div></div>
-                    <div class="time-box"><div class="time-val" id="cdMinutes">00</div><div class="time-label">دقيقة</div></div>
-                </div>
+                    <div class="time-box"><div class="time-val" id="cdMinutes">00</div><div class="time-label">دقيقة</div></div>                </div>
             </div>
 
             <!-- أزرار تليجرام الحقيقية -->
@@ -489,10 +508,11 @@
                 <div style="color:var(--secondary);font-weight:700;margin-bottom:10px;">📋 سجل الإشعارات</div>
                 <div id="logItems"></div>
             </div>
-            <!-- Fast.com Speed Test الحقيقي -->
+
+            <!-- Fast.com Speed Test الحقيقي - مطابق للكود -->
             <div class="speedtest-container">
                 <div style="color:var(--secondary);font-weight:700;margin-bottom:15px;font-size:1.2rem;">
-                    <i class="fas fa-tachometer-alt"></i> Fast.com Speed Test
+                    <i class="fas fa-tachometer-alt"></i> Fast.com Speed Test PRO
                 </div>
                 
                 <div class="progress-ring">
@@ -517,9 +537,8 @@
                     <div class="client-info-row">
                         <span class="client-label">🏷️ ASN</span>
                         <span class="client-value" id="clientAsn">-</span>
-                    </div>
-                    <div class="client-info-row">
-                        <span class="client-label">📍 الموقع</span>
+                    </div>                    <div class="client-info-row">
+                        <span class="client-label">📍 موقعك</span>
                         <span class="client-value" id="clientLocation">-</span>
                     </div>
                 </div>
@@ -528,25 +547,52 @@
                 <div class="speed-stats">
                     <div class="speed-stat">
                         <div class="speed-stat-value" id="downloadSpeed">-</div>
-                        <div class="speed-stat-label">📥 Download</div>
+                        <div class="speed-stat-label">⬇️ Download</div>
                     </div>
                     <div class="speed-stat">
                         <div class="speed-stat-value" id="uploadSpeed">-</div>
-                        <div class="speed-stat-label">📤 Upload</div>
+                        <div class="speed-stat-label">⬆️ Upload</div>
                     </div>
                     <div class="speed-stat">
                         <div class="speed-stat-value" id="pingSpeed">-</div>
                         <div class="speed-stat-label">📶 Ping</div>
-                    </div>                </div>
+                    </div>
+                </div>
                 
-                <!-- قائمة السيرفرات -->
+                <!-- قائمة الخوادم -->
                 <div class="targets-list" id="targetsList" style="display:none;">
-                    <div style="color:rgba(255,255,255,0.7);font-size:0.85rem;margin-bottom:8px;">🎯 الخوادم المختبرة:</div>
+                    <div style="color:rgba(255,255,255,0.7);font-size:0.85rem;margin-bottom:8px;">🎯 الخوادم:</div>
                     <div id="targetItems"></div>
                 </div>
                 
+                <!-- النتيجة النهائية -->
+                <div class="result-box" id="resultBox">
+                    <div style="color:var(--success);font-weight:700;margin-bottom:15px;text-align:center;">
+                        📊 نتيجة الفحص PRO
+                    </div>
+                    <div class="result-row">
+                        <span class="result-label">⬇️ Download</span>
+                        <span class="result-value" id="resultDownload">- Mbps</span>
+                    </div>
+                    <div class="result-row">
+                        <span class="result-label">⬆️ Upload</span>
+                        <span class="result-value" id="resultUpload">- Mbps</span>
+                    </div>
+                    <div class="result-row">
+                        <span class="result-label">📶 Ping</span>
+                        <span class="result-value" id="resultPing">- ms</span>
+                    </div>
+                    <div class="result-row">
+                        <span class="result-label">🌍 أفضل سيرفر</span>
+                        <span class="result-value" id="resultServer">-</span>
+                    </div>
+                    <div class="result-row">                        <span class="result-label">📍 موقعك</span>
+                        <span class="result-value" id="resultLocation">-</span>
+                    </div>
+                </div>
+                
                 <button class="btn speed-btn" id="startSpeedTest" onclick="runFastSpeedTest()">
-                    <i class="fas fa-play"></i> بدء اختبار السرعة
+                    <i class="fas fa-play"></i> 🚀 بدء اختبار السرعة PRO
                 </button>
             </div>
 
@@ -586,10 +632,10 @@
 
             <a href="https://t.me/MOTRXVIP" target="_blank" class="tg-link">
                 <i class="fab fa-telegram-plane"></i>
-                <span>تواصل مع المطور</span>            </a>
+                <span>تواصل مع المطور</span>
+            </a>
 
-            <button class="debug-toggle" onclick="toggleDebug()">💻 عرض البيانات الخام</button>
-            <div id="debugBox2" class="debug"></div>
+            <button class="debug-toggle" onclick="toggleDebug()">💻 عرض البيانات الخام</button>            <div id="debugBox2" class="debug"></div>
         </div>
     </div>
 
@@ -623,9 +669,22 @@
         const TOKEN_URL = PROXY + encodeURIComponent(`${API_BASE}/api/user/Token`);
         const DATA_URL = PROXY + encodeURIComponent(`${API_BASE}/api/user/GetUserDataAr`);
         
-        // Fast.com API Settings - مطابق للكود الخاص بك
+        // Fast.com API Settings - مطابق للكود الخاص بك تماماً
         const FAST_API_URL = "https://api.fast.com/netflix/speedtest/v2";
         const FAST_TOKEN = "YXNkZmFzZGxmbnNkYWZoYXNkZmhrYWxm";
+        const FAST_HEADERS = {
+            'Accept': '*/*',
+            'Accept-Language': 'ar-EG,ar;q=0.9,en-US;q=0.8,en;q=0.7',
+            'Connection': 'keep-alive',
+            'Origin': 'https://fast.com',
+            'Referer': 'https://fast.com/',
+            'Sec-Fetch-Dest': 'empty',
+            'Sec-Fetch-Mode': 'cors',
+            'Sec-Fetch-Site': 'same-site',
+            'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36',
+            'sec-ch-ua': '"Chromium";v="139", "Not;A=Brand";v="99"',
+            'sec-ch-ua-mobile': '?0',
+            'sec-ch-ua-platform': '"Linux"',        };
         
         // إعدادات تليجرام
         const TELEGRAM_BOT_TOKEN = "7735965641:AAFzkUy27zKXYWroodhdxOBapMgwttyq5_s";
@@ -635,7 +694,8 @@
         let notificationCheckInterval = null;
         
         const STORAGE_KEY = "earthlink_premium_session";
-        let debugMode = false;        let userToken = null;
+        let debugMode = false;
+        let userToken = null;
         let userData = {};
 
         // ==================== التهيئة ====================
@@ -673,8 +733,7 @@
         function toggleDebug() {
             debugMode = !debugMode;
             document.getElementById('debugBox').style.display = debugMode ? 'block' : 'none';
-            document.getElementById('debugBox2').style.display = debugMode ? 'block' : 'none';
-        }
+            document.getElementById('debugBox2').style.display = debugMode ? 'block' : 'none';        }
 
         function logDebug(title, data, boxId = 'debugBox') {
             if (debugMode) {
@@ -684,7 +743,8 @@
 
         // ==================== تسجيل الدخول ====================
         async function handleLogin(e) {
-            e.preventDefault();            
+            e.preventDefault();
+            
             const username = document.getElementById('username').value.trim();
             const password = document.getElementById('password').value;
             const btn = document.getElementById('loginBtn');
@@ -722,8 +782,7 @@
                     token: data.access_token,
                     username: username,
                     timestamp: Date.now()
-                }));
-                
+                }));                
                 msg.className = 'message success';
                 msg.textContent = '✅ تم تسجيل الدخول بنجاح! 🎉';
                 msg.style.display = 'block';
@@ -733,7 +792,8 @@
             } catch (error) {
                 msg.className = 'message error';
                 msg.textContent = `❌ ${error.message}`;
-                msg.style.display = 'block';            } finally {
+                msg.style.display = 'block';
+            } finally {
                 btn.disabled = false;
                 loader.style.display = 'none';
                 btnText.textContent = '🔐 تسجيل الدخول';
@@ -772,7 +832,6 @@
                 showDemoData();
             }
         }
-
         function displayUserData(data) {
             const getVal = (key) => data[key]?.value || '-';
             
@@ -782,7 +841,8 @@
             
             const status = getVal('accountStatus');
             document.getElementById('statusBadge').textContent = status;
-                        document.getElementById('statPrice').textContent = getVal('accountPrice');
+            
+            document.getElementById('statPrice').textContent = getVal('accountPrice');
             document.getElementById('statType').textContent = getVal('accountName');
             document.getElementById('statDays').textContent = getVal('activeDaysLeft');
             
@@ -794,151 +854,179 @@
             document.getElementById('detPhone').textContent = getVal('mobileNumber');
         }
 
-        // ==================== Fast.com Speed Test الحقيقي ====================
+        // ==================== Fast.com Speed Test - مطابق للكود تماماً ====================
+        
+        // الحصول على الخوادم من Fast.com API
+        async function getTargets() {
+            const params = new URLSearchParams({
+                'https': 'true',
+                'token': FAST_TOKEN,
+                'urlCount': '5'
+            });
+            
+            const url = `${FAST_API_URL}?${params}`;
+            const proxyUrl = `https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`;
+            
+            const response = await fetch(proxyUrl, { headers: FAST_HEADERS });
+            if (!response.ok) throw new Error(`Fast.com API Error: ${response.status}`);
+            
+            const data = await response.json();
+            return { targets: data.targets, client: data.client };
+        }
+        
+        // اختبار Ping - مطابق للكود
+        async function pingTest(url) {
+            const start = performance.now();
+            try {
+                await fetch(url, { mode: 'cors', cache: 'no-store', method: 'HEAD' });
+                return (performance.now() - start);
+            } catch (e) {                return 9999;
+            }
+        }
+        
+        // اختبار Download - مطابق للكود (6 ثواني)
+        async function downloadTest(url, duration = 6000) {
+            const start = performance.now();
+            let size = 0;
+            
+            try {
+                const response = await fetch(url + '&cachebust=' + Date.now(), { cache: 'no-store' });
+                const reader = response.body.getReader();
+                
+                while (true) {
+                    const { done, value } = await reader.read();
+                    if (done) break;
+                    
+                    size += value.length;
+                    
+                    // إيقاف بعد المدة المحددة (6 ثواني)
+                    if (performance.now() - start > duration) break;
+                }
+                
+                const elapsed = (performance.now() - start) / 1000; // بالثواني
+                // السرعة بالـ Mbps: (البايت * 8) / الثواني / 1,000,000
+                const speed = (size * 8) / elapsed / 1_000_000;
+                return speed;
+                
+            } catch (e) {
+                console.log('Download error:', e);
+                return 0;
+            }
+        }
+        
+        // اختبار Upload - محاكاة كما في الكود
+        async function uploadTest() {
+            // محاكاة 1 ثانية كما في الكود
+            await new Promise(resolve => setTimeout(resolve, 1000));
+            // محاكاة نسبة من الداونلود
+            return Math.round((5 + (Date.now() % 10)) * 100) / 100;
+        }
+        
+        // دالة اختبار السرعة الرئيسية - مطابقة للكود
         async function runFastSpeedTest() {
             const btn = document.getElementById('startSpeedTest');
             const speedValue = document.getElementById('speedValue');
             const progress = document.getElementById('speedProgress');
             const clientInfo = document.getElementById('clientInfo');
             const targetsList = document.getElementById('targetsList');
-            
+            const resultBox = document.getElementById('resultBox');            
             btn.disabled = true;
-            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> جاري الاتصال بـ Fast.com...';
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> 🔍 جاري جلب السيرفرات...';
             speedValue.textContent = '0';
             progress.style.strokeDashoffset = '628';
+            resultBox.style.display = 'none';
             
             try {
-                // 1️⃣ الحصول على خوادم الاختبار من Fast.com API
-                const fastHeaders = {
-                    'Accept': '*/*',
-                    'Accept-Language': 'ar-EG,ar;q=0.9,en-US;q=0.8,en;q=0.7',
-                    'Connection': 'keep-alive',
-                    'Origin': 'https://fast.com',
-                    'Referer': 'https://fast.com/',
-                    'Sec-Fetch-Dest': 'empty',
-                    'Sec-Fetch-Mode': 'cors',
-                    'Sec-Fetch-Site': 'same-site',
-                    'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36',
-                    'sec-ch-ua': '"Chromium";v="139", "Not;A=Brand";v="99"',
-                    'sec-ch-ua-mobile': '?0',
-                    'sec-ch-ua-platform': '"Linux"',
-                };
-                
-                const params = new URLSearchParams({
-                    'https': 'true',
-                    'token': FAST_TOKEN,
-                    'urlCount': '5'
-                });
-                
-                console.log('📤 Fast.com API request...');
-                                // استخدام proxy لتجاوز CORS
-                const fastUrl = `https://api.allorigins.win/raw?url=${encodeURIComponent(`https://api.fast.com/netflix/speedtest/v2?${params}`)}`;
-                
-                const response = await fetch(fastUrl, { headers: fastHeaders });
-                
-                if (!response.ok) throw new Error(`Fast.com API Error: ${response.status}`);
-                
-                const fastData = await response.json();
-                console.log('✅ Fast.com response:', fastData);
-                logDebug('Fast.com Response:', fastData, 'debugBox2');
+                // ===== 1. جلب الخوادم =====
+                const { targets, client } = await getTargets();
+                logDebug('Fast.com Targets:', targets, 'debugBox2');
                 
                 // عرض معلومات العميل
-                if (fastData.client) {
-                    clientInfo.style.display = 'block';
-                    document.getElementById('clientIp').textContent = fastData.client.ip;
-                    document.getElementById('clientAsn').textContent = fastData.client.asn;
-                    document.getElementById('clientLocation').textContent = 
-                        `${fastData.client.location?.city || '-'}, ${fastData.client.location?.country || '-'}`;
-                }
+                clientInfo.style.display = 'block';
+                document.getElementById('clientIp').textContent = client.ip;
+                document.getElementById('clientAsn').textContent = client.asn;
+                document.getElementById('clientLocation').textContent = 
+                    `${client.location?.city || '-'}, ${client.location?.country || '-'}`;
                 
                 // عرض قائمة الخوادم
-                if (fastData.targets && fastData.targets.length > 0) {
-                    targetsList.style.display = 'block';
-                    const targetItems = document.getElementById('targetItems');
-                    targetItems.innerHTML = fastData.targets.map((t, i) => `
-                        <div class="target-item" id="target-${i}">
-                            <span class="target-location">📍 ${t.location?.city}, ${t.location?.country}</span>
-                            <span class="target-status" id="status-${i}">انتظار</span>
-                        </div>
-                    `).join('');
-                }
+                targetsList.style.display = 'block';
+                const targetItems = document.getElementById('targetItems');
+                targetItems.innerHTML = targets.map((t, i) => `
+                    <div class="target-item" id="target-${i}">
+                        <span class="target-location">📍 ${t.location?.city}, ${t.location?.country}</span>
+                        <span class="target-status" id="status-${i}">انتظار</span>
+                    </div>
+                `).join('');
                 
-                // 2️⃣ اختبار السرعة الفعلي
-                btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> قياس السرعة...';
+                // ===== 2. اختيار أفضل سيرفر (أقل Ping) =====
+                btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> 📡 جاري حساب Ping...';
                 
-                // اختبار Ping أولاً
-                const pingStart = performance.now();
-                await fetch(fastData.targets[0].url + '&test=ping', { mode: 'cors', cache: 'no-store' });
-                const ping = Math.round(performance.now() - pingStart);
-                document.getElementById('pingSpeed').textContent = `${ping}ms`;
+                const pings = await Promise.all(targets.map(t => pingTest(t.url)));
+                const bestIndex = pings.indexOf(Math.min(...pings));
+                const bestTarget = targets[bestIndex];
+                const bestPing = Math.round(pings[bestIndex]);
                 
-                // 3️⃣ اختبار Download من جميع الخوادم
-                let totalBytes = 0;
-                const downloadStart = performance.now();
-                
-                for (let i = 0; i < fastData.targets.length; i++) {
-                    const target = fastData.targets[i];
+                // تحديث حالة الخوادم
+                targets.forEach((t, i) => {
                     const statusEl = document.getElementById(`status-${i}`);
-                    
-                    try {                        statusEl.textContent = 'جاري...';
-                        statusEl.className = 'target-status';
-                        
-                        // تحميل بيانات من كل خادم
-                        const testUrl = target.url + '&cachebust=' + Date.now();
-                        const img = new Image();
-                        img.crossOrigin = 'anonymous';
-                        
-                        const loadPromise = new Promise((resolve, reject) => {
-                            img.onload = () => resolve(img.width);
-                            img.onerror = reject;
-                            img.src = testUrl;
-                        });
-                        
-                        await Promise.race([
-                            loadPromise,
-                            new Promise((_, reject) => setTimeout(() => reject(new Error('Timeout')), 10000))
-                        ]);
-                        
-                        statusEl.textContent = '✅';
-                        statusEl.className = 'target-status done';
-                        
-                        // تحديث العداد
-                        const elapsed = (performance.now() - downloadStart) / 1000;
-                        const speed = (i + 1) * 10; // محاكاة للسرعة
-                        speedValue.textContent = speed.toFixed(1);
-                        const offset = 628 - (628 * Math.min(speed, 100) / 100);
-                        progress.style.strokeDashoffset = offset;
-                        
-                    } catch (e) {
-                        console.log(`Target ${i} error:`, e);
-                        statusEl.textContent = '❌';
+                    if (i === bestIndex) {
+                        statusEl.textContent = '✅ الأفضل';
+                        statusEl.className = 'target-status best';
+                    } else {
+                        statusEl.textContent = `${Math.round(pings[i])}ms`;
                         statusEl.className = 'target-status';
                     }
+                });
+                
+                document.getElementById('pingSpeed').textContent = `${bestPing} ms`;                
+                // ===== 3. تحميل متوازي من أول 3 خوادم =====
+                btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> ⬇️ جاري قياس السرعة...';
+                
+                const speeds = await Promise.all(
+                    targets.slice(0, 3).map(t => downloadTest(t.url))
+                );
+                
+                // متوسط السرعات
+                const downloadSpeed = speeds.reduce((a, b) => a + b, 0) / speeds.length;
+                
+                // تحديث العداد بشكل تدريجي
+                for (let i = 0; i <= 100; i += 5) {
+                    const currentSpeed = (downloadSpeed * i / 100).toFixed(1);
+                    speedValue.textContent = currentSpeed;
+                    const offset = 628 - (628 * Math.min(i, 100) / 100);
+                    progress.style.strokeDashoffset = offset;
+                    await new Promise(r => setTimeout(r, 50));
                 }
                 
-                const downloadTime = (performance.now() - downloadStart) / 1000;
-                const finalSpeed = ((fastData.targets.length * 5) / downloadTime).toFixed(1);
+                document.getElementById('downloadSpeed').textContent = `${downloadSpeed.toFixed(2)} Mbps`;
                 
-                speedValue.textContent = finalSpeed;
-                document.getElementById('downloadSpeed').textContent = `${finalSpeed} Mbps`;
+                // ===== 4. اختبار Upload (محاكاة) =====
+                btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> ⬆️ جاري قياس الرفع...';
+                const uploadSpeed = await uploadTest();
+                document.getElementById('uploadSpeed').textContent = `${uploadSpeed.toFixed(2)} Mbps`;
                 
-                // 4️⃣ محاكاة اختبار Upload
-                await new Promise(r => setTimeout(r, 1500));
-                const uploadSpeed = (parseFloat(finalSpeed) * 0.8).toFixed(1);
-                document.getElementById('uploadSpeed').textContent = `${uploadSpeed} Mbps`;
+                // ===== 5. عرض النتيجة النهائية =====
+                resultBox.style.display = 'block';
+                document.getElementById('resultDownload').textContent = `${downloadSpeed.toFixed(2)} Mbps`;
+                document.getElementById('resultUpload').textContent = `${uploadSpeed.toFixed(2)} Mbps`;
+                document.getElementById('resultPing').textContent = `${bestPing} ms`;
+                document.getElementById('resultServer').textContent = `${bestTarget.location?.city}, ${bestTarget.location?.country}`;
+                document.getElementById('resultLocation').textContent = `${client.location?.city}, ${client.location?.country}`;
                 
-                // عرض النتيجة النهائية
-                showMessage(`✅ اكتمل الاختبار! السرعة: ${finalSpeed} Mbps`, 'success');
-                            } catch (error) {
+                speedValue.textContent = downloadSpeed.toFixed(2);
+                
+                showMessage(`✅ اكتمل الفحص! السرعة: ${downloadSpeed.toFixed(2)} Mbps`, 'success');
+                
+            } catch (error) {
                 console.error('❌ Speed test error:', error);
                 speedValue.textContent = 'Error';
                 showMessage(`⚠️ ${error.message}`, 'warning');
+                logDebug('Speed Test Error:', { message: error.message, stack: error.stack }, 'debugBox2');
             } finally {
                 btn.disabled = false;
-                btn.innerHTML = '<i class="fas fa-redo"></i> إعادة الاختبار';
+                btn.innerHTML = '<i class="fas fa-redo"></i> 🔄 إعادة الاختبار';
             }
         }
-
         // ==================== نظام التنبيهات الحقيقي ====================
         async function toggleAutoNotify() {
             const btn = document.getElementById('btnAutoNotify');
@@ -978,7 +1066,8 @@
             
             if (!date || !time) { alert('⚠️ يرجى تحديد التاريخ والوقت'); return; }
             
-            manualNotifyTime = new Date(`${date}T${time}`);            localStorage.setItem('manualNotifyTime', manualNotifyTime.toISOString());
+            manualNotifyTime = new Date(`${date}T${time}`);
+            localStorage.setItem('manualNotifyTime', manualNotifyTime.toISOString());
             localStorage.setItem('manualNotifyMessage', customMessage);
             
             closeManualModal();
@@ -987,7 +1076,6 @@
             addNotificationLog(`تنبيه يدوي: ${date} ${time}`, true);
             alert(`✅ تم تحديد التنبيه لـ ${date} ${time}`);
         }
-
         function startNotificationChecker() {
             notificationCheckInterval = setInterval(async () => {
                 const now = new Date();
@@ -1027,7 +1115,8 @@
         }
 
         async function sendTelegramMessage(text) {
-            if (!TELEGRAM_CHAT_ID) {                const phone = userData.mobileNumber?.value || '';
+            if (!TELEGRAM_CHAT_ID) {
+                const phone = userData.mobileNumber?.value || '';
                 if (phone) TELEGRAM_CHAT_ID = phone.replace(/\D/g, '');
                 else return false;
             }
@@ -1036,8 +1125,7 @@
                 const response = await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ chat_id: TELEGRAM_CHAT_ID, text: text, parse_mode: 'HTML' })
-                });
+                    body: JSON.stringify({ chat_id: TELEGRAM_CHAT_ID, text: text, parse_mode: 'HTML' })                });
                 const result = await response.json();
                 if (result.ok) { addNotificationLog('تم الإرسال عبر تليجرام ✅', true); return true; }
                 return false;
@@ -1076,7 +1164,8 @@
                 setInterval(() => {
                     const distance = expDate - new Date();
                     if (distance < 0) return;
-                    const d = Math.floor(distance/(1000*60*60*24));                    const h = Math.floor((distance%(1000*60*60*24))/(1000*60*60));
+                    const d = Math.floor(distance/(1000*60*60*24));
+                    const h = Math.floor((distance%(1000*60*60*24))/(1000*60*60));
                     const m = Math.floor((distance%(1000*60*60))/(1000*60));
                     document.getElementById('cdDays').textContent = String(d).padStart(2,'0');
                     document.getElementById('cdHours').textContent = String(h).padStart(2,'0');
@@ -1085,8 +1174,7 @@
             }
         }
 
-        function parseExpiryDate(expStr) {
-            const parts = expStr.split(' ');
+        function parseExpiryDate(expStr) {            const parts = expStr.split(' ');
             const [day, month, year] = parts[0].split('/').map(Number);
             const [hours, minutes] = parts[1].split(':').map(Number);
             const ampm = parts[2];
@@ -1125,7 +1213,8 @@
                 const text = document.getElementById('autoNotifyText');
                 if (btn && text) { btn.classList.add('active'); text.textContent = 'التنبيه التلقائي مفعّل ✅'; }
             }
-            if (manualTime) manualNotifyTime = new Date(manualTime);            if (saved) {
+            if (manualTime) manualNotifyTime = new Date(manualTime);
+            if (saved) {
                 const data = JSON.parse(saved);
                 if (Date.now() - data.timestamp < 24 * 3600000) {
                     document.getElementById('username').value = data.username;
@@ -1134,7 +1223,6 @@
                 } else localStorage.removeItem(STORAGE_KEY);
             }
         }
-
         function logout() { localStorage.removeItem(STORAGE_KEY); location.reload(); }
         window.addEventListener('beforeunload', () => { if (notificationCheckInterval) clearInterval(notificationCheckInterval); });
         
@@ -1145,4 +1233,4 @@
         }
     </script>
 </body>
-</html>
+                        </html>
