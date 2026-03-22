@@ -3,83 +3,403 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>🌐 EarthLink Portal</title>
+    <title>🌐 EarthLink Premium Portal</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;900&display=swap');
+        
         :root {
             --primary: #6c5ce7; --secondary: #00cec9; --accent: #fd79a8;
             --warning: #ffeaa7; --danger: #ff7675; --success: #00b894;
-            --glass-bg: rgba(255,255,255,0.1); --glass-border: rgba(255,255,255,0.2);
+            --glass-bg: rgba(255,255,255,0.08); --glass-border: rgba(255,255,255,0.15);
+            --glow-primary: 0 0 20px rgba(108,92,231,0.6);
+            --glow-secondary: 0 0 20px rgba(0,206,201,0.6);
         }
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, sans-serif; -webkit-tap-highlight-color: transparent; }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Tajawal', sans-serif; -webkit-tap-highlight-color: transparent; }
+        
         body {
             background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
-            color: #fff; min-height: 100vh; display: flex; justify-content: center; align-items: center; padding: 15px;
+            color: #fff; min-height: 100vh; overflow-x: hidden; position: relative;
         }
-        .container { width: 100%; max-width: 500px; }
+        
+        /* خلفية الجسيمات */
+        #particles-js {
+            position: fixed; width: 100%; height: 100%; top: 0; left: 0; z-index: 0;
+        }
+        
+        /* الكرات المضيئة المتحركة */
+        .glow-orb {
+            position: fixed; border-radius: 50%; filter: blur(80px); z-index: 0;
+            animation: floatOrb 15s infinite ease-in-out; opacity: 0.4;
+        }
+        .orb-1 { width: 400px; height: 400px; background: var(--primary); top: -100px; left: -100px; animation-delay: 0s; }
+        .orb-2 { width: 350px; height: 350px; background: var(--secondary); bottom: -80px; right: -80px; animation-delay: -5s; }
+        .orb-3 { width: 300px; height: 300px; background: var(--accent); top: 50%; left: 50%; animation-delay: -10s; }
+        .orb-4 { width: 250px; height: 250px; background: var(--success); top: 20%; right: 10%; animation-delay: -7s; opacity: 0.3; }
+        .orb-5 { width: 280px; height: 280px; background: var(--danger); bottom: 20%; left: 15%; animation-delay: -12s; opacity: 0.25; }
+        
+        @keyframes floatOrb {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(30px, -30px) scale(1.1); }
+            66% { transform: translate(-20px, 20px) scale(0.9); }
+        }
+        
+        /* خطوط نيون متحركة */
+        .neon-line {            position: fixed; height: 2px; background: linear-gradient(90deg, transparent, var(--secondary), var(--primary), transparent);
+            animation: neonMove 8s linear infinite; z-index: 0; opacity: 0.3;
+        }
+        .neon-line:nth-child(1) { top: 20%; width: 60%; animation-delay: 0s; }
+        .neon-line:nth-child(2) { top: 50%; width: 40%; animation-delay: -3s; }
+        .neon-line:nth-child(3) { top: 80%; width: 50%; animation-delay: -6s; }
+        
+        @keyframes neonMove {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+        
+        /* الحاوية الرئيسية */
+        .container {
+            position: relative; z-index: 10; width: 100%; max-width: 600px;
+            margin: 0 auto; padding: 20px 15px; min-height: 100vh;
+            display: flex; flex-direction: column; justify-content: center;
+        }
+        
+        /* البطاقات الفاخرة */
         .card {
-            background: var(--glass-bg); backdrop-filter: blur(10px);
-            border: 1px solid var(--glass-border); border-radius: 20px;
-            padding: 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.4);
-            animation: slideUp 0.5s ease-out;
+            background: var(--glass-bg); backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border); border-radius: 30px;
+            padding: 30px 25px; box-shadow: 0 20px 60px rgba(0,0,0,0.5), var(--glow-primary);
+            animation: cardEntrance 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+            position: relative; overflow: hidden;
+            transform-style: preserve-3d; perspective: 1000px;
         }
-        @keyframes slideUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
-        .header { text-align: center; margin-bottom: 25px; }
-        .header i { font-size: 2.5rem; background: linear-gradient(45deg, var(--secondary), var(--primary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 10px; animation: pulse 2s infinite; }
-        @keyframes pulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.1); } }
-        .input-group { position: relative; margin-bottom: 18px; }
+        
+        .card::before {
+            content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+            transform: rotate(45deg); animation: shimmer 6s infinite;
+        }
+        
+        @keyframes shimmer {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        }
+        
+        @keyframes cardEntrance {
+            0% { opacity: 0; transform: translateY(50px) rotateX(10deg); }
+            100% { opacity: 1; transform: translateY(0) rotateX(0); }
+        }
+        
+        /* الرأس المتحرك */
+        .header {
+            text-align: center; margin-bottom: 30px; position: relative; z-index: 1;
+        }
+        .header i {            font-size: 3.5rem; background: linear-gradient(45deg, var(--secondary), var(--primary), var(--accent));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            animation: iconPulse 2s infinite, rotate3d 10s linear infinite;
+            display: inline-block; filter: drop-shadow(0 0 15px rgba(108,92,231,0.8));
+        }
+        
+        @keyframes iconPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.15); }
+        }
+        @keyframes rotate3d {
+            0% { transform: rotateY(0deg) scale(1); }
+            50% { transform: rotateY(180deg) scale(1.1); }
+            100% { transform: rotateY(360deg) scale(1); }
+        }
+        
+        .header h2 {
+            font-size: 2rem; margin-top: 15px; font-weight: 900;
+            background: linear-gradient(45deg, #fff, var(--secondary));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            animation: textGlow 3s infinite;
+        }
+        
+        @keyframes textGlow {
+            0%, 100% { filter: drop-shadow(0 0 5px rgba(0,206,201,0.5)); }
+            50% { filter: drop-shadow(0 0 20px rgba(0,206,201,0.8)); }
+        }
+        
+        /* حقول الإدخال المتحركة */
+        .input-group {
+            position: relative; margin-bottom: 22px; z-index: 1;
+        }
         .input-group input {
-            width: 100%; padding: 14px 45px 14px 14px; background: rgba(0,0,0,0.3);
-            border: 1px solid var(--glass-border); border-radius: 12px; color: #fff; font-size: 1rem;
+            width: 100%; padding: 16px 50px 16px 16px; background: rgba(0,0,0,0.3);
+            border: 2px solid var(--glass-border); border-radius: 16px; color: #fff;
+            font-size: 1rem; transition: all 0.3s; position: relative;
         }
-        .input-group input:focus { border-color: var(--secondary); box-shadow: 0 0 0 3px rgba(0,206,201,0.2); outline: none; }
-        .input-group i { position: absolute; right: 15px; top: 50%; transform: translateY(-50%); color: var(--secondary); }
+        .input-group input:focus {
+            border-color: var(--secondary); box-shadow: 0 0 0 4px rgba(0,206,201,0.2), var(--glow-secondary);
+            transform: translateY(-2px); outline: none;
+        }
+        .input-group i {
+            position: absolute; right: 18px; top: 50%; transform: translateY(-50%);
+            color: var(--secondary); font-size: 1.2rem; transition: all 0.3s;
+        }
+        .input-group input:focus + i { color: var(--accent); transform: translateY(-50%) scale(1.2); }
+        
+        /* الأزرار الفاخرة */
         .btn {
-            width: 100%; padding: 14px; background: linear-gradient(45deg, var(--primary), var(--secondary));
-            border: none; border-radius: 12px; color: #fff; font-size: 1rem; font-weight: bold;
-            cursor: pointer; transition: 0.3s;
+            width: 100%; padding: 16px; background: linear-gradient(45deg, var(--primary), var(--secondary));            border: none; border-radius: 16px; color: #fff; font-size: 1.1rem; font-weight: 700;
+            cursor: pointer; transition: all 0.3s; position: relative; overflow: hidden;
+            box-shadow: 0 10px 30px rgba(108,92,231,0.4); z-index: 1;
         }
+        .btn::before {
+            content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            transition: left 0.5s;
+        }
+        .btn:hover::before { left: 100%; }
+        .btn:hover { transform: translateY(-3px); box-shadow: 0 15px 40px rgba(108,92,231,0.6); }
         .btn:active { transform: scale(0.98); }
-        .btn:disabled { opacity: 0.6; }
+        .btn:disabled { opacity: 0.6; cursor: not-allowed; }
+        
+        /* أزرار تليجرام الفاخرة */
+        .tg-buttons {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 20px 0;
+        }
+        .tg-btn {
+            padding: 14px; border-radius: 14px; border: none; cursor: pointer;
+            font-weight: 700; font-size: 0.9rem; transition: all 0.3s;
+            display: flex; align-items: center; justify-content: center; gap: 8px;
+            position: relative; overflow: hidden; z-index: 1;
+        }
+        .tg-btn-auto {
+            background: linear-gradient(45deg, #0088cc, #00aaff);
+            color: white; box-shadow: 0 5px 20px rgba(0,136,204,0.4);
+        }
+        .tg-btn-manual {
+            background: linear-gradient(45deg, #6c5ce7, #a29bfe);
+            color: white; box-shadow: 0 5px 20px rgba(108,92,231,0.4);
+        }
+        .tg-btn:hover { transform: translateY(-3px) scale(1.02); }
+        .tg-btn:active { transform: scale(0.98); }
+        .tg-btn.active { animation: pulseBtn 2s infinite; }
+        
+        @keyframes pulseBtn {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(0,136,204,0.7); }
+            50% { box-shadow: 0 0 0 15px rgba(0,136,204,0); }
+        }
+        
         #dashboard { display: none; }
-        .user-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; padding-bottom: 15px; border-bottom: 1px solid var(--glass-border); }
-        .status-badge { padding: 4px 12px; border-radius: 20px; font-size: 0.85rem; font-weight: bold; background: rgba(0,184,148,0.2); color: var(--success); border: 1px solid var(--success); }
-        .stats { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 20px; }
-        .stat-box { background: rgba(255,255,255,0.05); padding: 15px; border-radius: 12px; text-align: center; }
-        .stat-value { font-size: 1.3rem; font-weight: bold; color: var(--secondary); margin: 5px 0; }
-        .stat-label { font-size: 0.8rem; color: rgba(255,255,255,0.7); }        .details { background: rgba(255,255,255,0.03); border-radius: 12px; padding: 15px; margin-top: 15px; }
-        .detail-row { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px dashed rgba(255,255,255,0.1); font-size: 0.9rem; }
+        
+        /* رأس المستخدم */
+        .user-header {
+            display: flex; justify-content: space-between; align-items: center;
+            margin-bottom: 25px; padding-bottom: 18px; border-bottom: 2px solid var(--glass-border);
+            position: relative; z-index: 1;
+        }
+        .status-badge {            padding: 6px 16px; border-radius: 25px; font-size: 0.85rem; font-weight: 700;
+            background: rgba(0,184,148,0.2); color: var(--success); border: 2px solid var(--success);
+            animation: statusPulse 2s infinite; box-shadow: 0 0 15px rgba(0,184,148,0.4);
+        }
+        @keyframes statusPulse {
+            0%, 100% { box-shadow: 0 0 5px rgba(0,184,148,0.4); }
+            50% { box-shadow: 0 0 20px rgba(0,184,148,0.8); }
+        }
+        
+        /* الإحصائيات المتحركة */
+        .stats {
+            display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 22px;
+        }
+        .stat-box {
+            background: rgba(255,255,255,0.08); padding: 18px 12px; border-radius: 18px;
+            text-align: center; border: 1px solid var(--glass-border);
+            transition: all 0.3s; position: relative; overflow: hidden;
+            animation: statFloat 6s ease-in-out infinite;
+        }
+        .stat-box:nth-child(2) { animation-delay: 0.5s; }
+        .stat-box:nth-child(3) { animation-delay: 1s; }
+        
+        @keyframes statFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+        
+        .stat-box:hover {
+            transform: translateY(-8px) scale(1.05);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        .stat-box::before {
+            content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            transform: scaleX(0); transition: transform 0.3s;
+        }
+        .stat-box:hover::before { transform: scaleX(1); }
+        
+        .stat-icon { font-size: 1.8rem; margin-bottom: 8px; }
+        .stat-value { font-size: 1.4rem; font-weight: 900; color: var(--secondary); margin: 6px 0; text-shadow: 0 0 10px rgba(0,206,201,0.5); }
+        .stat-label { font-size: 0.75rem; color: rgba(255,255,255,0.7); }
+        
+        /* العد التنازلي الفاخر */
+        .countdown {
+            background: linear-gradient(135deg, rgba(255,118,117,0.15), rgba(255,193,7,0.15));
+            border: 2px solid rgba(255,193,7,0.5); border-radius: 20px;
+            padding: 20px; text-align: center; margin-bottom: 22px; display: none;
+            animation: countdownGlow 3s infinite; position: relative; overflow: hidden;
+        }
+        .countdown::before {            content: '⚠️'; position: absolute; top: 10px; right: 15px; font-size: 2rem;
+            opacity: 0.2; animation: warnPulse 1s infinite;
+        }
+        @keyframes countdownGlow {
+            0%, 100% { box-shadow: 0 0 15px rgba(255,193,7,0.4); }
+            50% { box-shadow: 0 0 30px rgba(255,193,7,0.8); }
+        }
+        @keyframes warnPulse {
+            0%, 100% { transform: scale(1); opacity: 0.2; }
+            50% { transform: scale(1.2); opacity: 0.5; }
+        }
+        .countdown-timer { display: flex; justify-content: center; gap: 12px; margin-top: 12px; }
+        .time-box {
+            background: rgba(0,0,0,0.4); padding: 12px 16px; border-radius: 12px;
+            min-width: 65px; border: 1px solid rgba(255,255,255,0.1);
+            animation: timePulse 1s infinite;
+        }
+        @keyframes timePulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        .time-val { font-size: 1.5rem; font-weight: 900; color: var(--danger); text-shadow: 0 0 10px rgba(255,118,117,0.6); }
+        .time-label { font-size: 0.75rem; color: rgba(255,255,255,0.7); margin-top: 4px; }
+        
+        /* التفاصيل */
+        .details {
+            background: rgba(255,255,255,0.05); border-radius: 18px; padding: 20px;
+            margin-top: 18px; border: 1px solid var(--glass-border);
+        }
+        .section-title {
+            color: var(--secondary); font-weight: 900; margin-bottom: 15px;
+            display: flex; align-items: center; gap: 10px; font-size: 1.1rem;
+            border-right: 4px solid var(--secondary); padding-right: 12px;
+        }
+        .detail-row {
+            display: flex; justify-content: space-between; padding: 12px 0;
+            border-bottom: 1px dashed rgba(255,255,255,0.15); font-size: 0.9rem;
+            transition: all 0.3s;
+        }
+        .detail-row:hover { background: rgba(255,255,255,0.03); padding-right: 8px; border-radius: 8px; }
         .detail-row:last-child { border-bottom: none; }
-        .detail-label { color: rgba(255,255,255,0.6); }
-        .detail-value { color: #fff; font-weight: 500; direction: ltr; text-align: left; }
-        .countdown { background: linear-gradient(45deg, rgba(255,118,117,0.15), rgba(255,193,7,0.15)); border: 1px solid rgba(255,193,7,0.4); border-radius: 12px; padding: 15px; text-align: center; margin-bottom: 20px; display: none; }
-        .countdown-timer { display: flex; justify-content: center; gap: 10px; margin-top: 10px; }
-        .time-box { background: rgba(0,0,0,0.3); padding: 8px 12px; border-radius: 8px; min-width: 50px; }
-        .time-val { font-size: 1.2rem; font-weight: bold; color: var(--danger); }
-        .time-label { font-size: 0.7rem; color: rgba(255,255,255,0.7); }
-        .message { padding: 10px 15px; border-radius: 10px; margin-bottom: 15px; display: none; animation: slideDown 0.3s; font-size: 0.9rem; }
-        @keyframes slideDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
-        .message.error { background: rgba(255,118,117,0.2); border: 1px solid #ff7675; color: #ff7675; }
-        .message.success { background: rgba(0,184,148,0.2); border: 1px solid #00b894; color: #00b894; }
-        .message.warning { background: rgba(255,193,7,0.2); border: 1px solid #ffc107; color: #ffc107; }
-        .logout { background: transparent; border: 1px solid var(--danger); color: var(--danger); padding: 10px; border-radius: 10px; cursor: pointer; margin-top: 15px; width: 100%; font-size: 0.95rem; }
-        .debug { background: rgba(0,0,0,0.4); padding: 10px; border-radius: 8px; margin-top: 15px; font-size: 0.75rem; max-height: 150px; overflow-y: auto; display: none; direction: ltr; text-align: left; color: #00cec9; }
-        .debug-toggle { background: transparent; border: 1px solid var(--glass-border); color: rgba(255,255,255,0.6); padding: 8px; border-radius: 8px; cursor: pointer; margin-top: 10px; width: 100%; font-size: 0.85rem; }
-        .loader { border: 3px solid rgba(255,255,255,0.2); border-top-color: var(--secondary); border-radius: 50%; width: 24px; height: 24px; animation: spin 1s linear infinite; display: inline-block; vertical-align: middle; margin-left: 8px; display: none; }
+        .detail-label { color: rgba(255,255,255,0.7); display: flex; align-items: center; gap: 8px; }
+        .detail-value { color: #fff; font-weight: 600; direction: ltr; text-align: left; }
+        
+        /* الرسائل */
+        .message {
+            padding: 12px 18px; border-radius: 14px; margin-bottom: 18px; display: none;
+            animation: messageSlide 0.4s cubic-bezier(0.23, 1, 0.32, 1); font-size: 0.9rem;
+            position: relative; z-index: 100; box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+        }        @keyframes messageSlide {
+            0% { opacity: 0; transform: translateY(-20px) scale(0.9); }
+            100% { opacity: 1; transform: translateY(0) scale(1); }
+        }
+        .message.error { background: rgba(255,118,117,0.2); border: 2px solid #ff7675; color: #ff7675; }
+        .message.success { background: rgba(0,184,148,0.2); border: 2px solid #00b894; color: #00b894; }
+        .message.warning { background: rgba(255,193,7,0.2); border: 2px solid #ffc107; color: #ffc107; }
+        
+        /* زر الخروج */
+        .logout {
+            background: transparent; border: 2px solid var(--danger); color: var(--danger);
+            padding: 12px; border-radius: 14px; cursor: pointer; margin-top: 18px;
+            width: 100%; font-size: 1rem; font-weight: 700; transition: all 0.3s;
+            display: flex; align-items: center; justify-content: center; gap: 8px;
+        }
+        .logout:hover { background: var(--danger); color: #fff; transform: translateY(-2px); box-shadow: 0 5px 20px rgba(255,118,117,0.4); }
+        
+        /* Debug */
+        .debug {
+            background: rgba(0,0,0,0.5); padding: 12px; border-radius: 12px;
+            margin-top: 15px; font-size: 0.75rem; max-height: 180px; overflow-y: auto;
+            display: none; direction: ltr; text-align: left; color: #00cec9;
+            border: 1px solid rgba(0,206,201,0.3);
+        }
+        .debug-toggle {
+            background: rgba(255,255,255,0.05); border: 1px solid var(--glass-border);
+            color: rgba(255,255,255,0.6); padding: 10px; border-radius: 12px;
+            cursor: pointer; margin-top: 12px; width: 100%; font-size: 0.85rem;
+            transition: all 0.3s;
+        }
+        .debug-toggle:hover { background: rgba(255,255,255,0.1); color: #fff; }
+        
+        /* Loader */
+        .loader {
+            border: 3px solid rgba(255,255,255,0.2); border-top-color: var(--secondary);
+            border-radius: 50%; width: 24px; height: 24px; animation: spin 1s linear infinite;
+            display: inline-block; vertical-align: middle; margin-left: 10px; display: none;
+        }
         @keyframes spin { 100% { transform: rotate(360deg); } }
-        .tg-link { display: inline-flex; align-items: center; gap: 6px; background: #0088cc; color: white; padding: 10px 20px; border-radius: 10px; text-decoration: none; font-weight: bold; margin-top: 15px; }
+        
+        /* رابط تليجرام */
+        .tg-link {
+            display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+            background: linear-gradient(45deg, #0088cc, #00aaff); color: white;
+            padding: 12px 24px; border-radius: 14px; text-decoration: none;
+            font-weight: 700; margin-top: 15px; width: 100%; transition: all 0.3s;
+            box-shadow: 0 5px 20px rgba(0,136,204,0.4);
+        }
+        .tg-link:hover { transform: translateY(-3px); box-shadow: 0 8px 25px rgba(0,136,204,0.6); }
+                /* تأثيرات إضافية */
+        .floating-shapes {
+            position: fixed; width: 100%; height: 100%; top: 0; left: 0; z-index: 1;
+            pointer-events: none; overflow: hidden;
+        }
+        .shape {
+            position: absolute; opacity: 0.1; animation: floatShape 20s infinite;
+        }
+        .shape:nth-child(1) { top: 10%; left: 10%; width: 60px; height: 60px; background: var(--primary); animation-delay: 0s; border-radius: 50%; }
+        .shape:nth-child(2) { top: 70%; left: 80%; width: 80px; height: 80px; background: var(--secondary); animation-delay: -5s; clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%); }
+        .shape:nth-child(3) { top: 40%; left: 90%; width: 50px; height: 50px; background: var(--accent); animation-delay: -10s; border-radius: 50%; }
+        .shape:nth-child(4) { top: 80%; left: 20%; width: 70px; height: 70px; background: var(--success); animation-delay: -15s; clip-path: polygon(50% 0%, 0% 100%, 100% 100%); }
+        
+        @keyframes floatShape {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            25% { transform: translate(20px, -20px) rotate(90deg); }
+            50% { transform: translate(0, -40px) rotate(180deg); }
+            75% { transform: translate(-20px, -20px) rotate(270deg); }
+        }
+        
+        /* Responsive */
+        @media (max-width: 480px) {
+            .stats { grid-template-columns: 1fr; }
+            .tg-buttons { grid-template-columns: 1fr; }
+            .header i { font-size: 2.8rem; }
+            .header h2 { font-size: 1.6rem; }
+        }
     </style>
 </head>
 <body>
-    <div class="container">
-        <!-- تسجيل الدخول -->
+    <!-- الخلفية المتحركة -->
+    <div id="particles-js"></div>
+    <div class="glow-orb orb-1"></div>
+    <div class="glow-orb orb-2"></div>
+    <div class="glow-orb orb-3"></div>
+    <div class="glow-orb orb-4"></div>
+    <div class="glow-orb orb-5"></div>
+    
+    <div class="neon-line"></div>
+    <div class="neon-line"></div>
+    <div class="neon-line"></div>
+    
+    <div class="floating-shapes">
+        <div class="shape"></div>
+        <div class="shape"></div>
+        <div class="shape"></div>
+        <div class="shape"></div>
+    </div>
+    
+    <div class="container">        <!-- نموذج تسجيل الدخول -->
         <div class="card" id="loginForm">
             <div class="header">
                 <i class="fas fa-satellite-dish"></i>
                 <h2>EarthLink Portal</h2>
-                <p style="color:rgba(255,255,255,0.6);margin-top:8px;font-size:0.9rem;">بوابة إدارة الاشتراكات</p>
+                <p style="color:rgba(255,255,255,0.7);margin-top:10px;font-size:0.95rem;">🌟 البوابة الفاخرة لإدارة الاشتراكات</p>
             </div>
+            
             <div id="messageBox" class="message"></div>
+            
             <form onsubmit="handleLogin(event)">
                 <div class="input-group">
                     <input type="text" id="username" placeholder="اسم المستخدم" required autocomplete="off">
@@ -91,12 +411,15 @@
                 </div>
                 <button type="submit" class="btn" id="loginBtn">
                     <div class="loader" id="loader"></div>
-                    <span id="btnText">تسجيل الدخول</span>
+                    <span id="btnText">🔐 تسجيل الدخول</span>
                 </button>
             </form>
+            
             <button class="debug-toggle" onclick="toggleDebug()">🐛 عرض البيانات (Debug)</button>
             <div id="debugBox" class="debug"></div>
-            <p style="text-align:center;margin-top:15px;font-size:0.8rem;color:rgba(255,255,255,0.5);">                <i class="fas fa-shield-alt"></i> اتصال آمن مع EarthLink
+            
+            <p style="text-align:center;margin-top:18px;font-size:0.85rem;color:rgba(255,255,255,0.5);">
+                <i class="fas fa-shield-alt"></i> 🔒 اتصال آمن ومشفّر مع EarthLink
             </p>
         </div>
 
@@ -104,7 +427,7 @@
         <div class="card" id="dashboard">
             <div class="user-header">
                 <div>
-                    <h2 id="userName">مرحباً</h2>
+                    <h2 id="userName" style="font-size:1.5rem;margin-bottom:8px;">مرحباً</h2>
                     <span id="statusBadge" class="status-badge">-</span>
                 </div>
                 <button class="logout" onclick="logout()">🚪 خروج</button>
@@ -112,49 +435,64 @@
 
             <!-- تنبيه الانتهاء -->
             <div class="countdown" id="expiryWarning">
-                <div style="color:var(--danger);font-weight:bold;margin-bottom:8px;">⚠️ الاشتراك يوشك على الانتهاء!</div>
+                <div style="color:var(--danger);font-weight:900;margin-bottom:10px;font-size:1.1rem;">⚠️ الاشتراك يوشك على الانتهاء!</div>
                 <div class="countdown-timer">
                     <div class="time-box"><div class="time-val" id="cdDays">00</div><div class="time-label">يوم</div></div>
                     <div class="time-box"><div class="time-val" id="cdHours">00</div><div class="time-label">ساعة</div></div>
-                    <div class="time-box"><div class="time-val" id="cdMinutes">00</div><div class="time-label">دقيقة</div></div>
-                </div>
+                    <div class="time-box"><div class="time-val" id="cdMinutes">00</div><div class="time-label">دقيقة</div></div>                </div>
+            </div>
+
+            <!-- أزرار تليجرام -->
+            <div class="tg-buttons">
+                <button class="tg-btn tg-btn-auto" id="btnAutoNotify" onclick="toggleAutoNotify()">
+                    <i class="fas fa-bell"></i>
+                    <span id="autoNotifyText">تفعيل التنبيه التلقائي</span>
+                </button>
+                <button class="tg-btn tg-btn-manual" onclick="sendManualNotification()">
+                    <i class="fas fa-paper-plane"></i>
+                    <span>إرسال تنبيه يدوي</span>
+                </button>
             </div>
 
             <!-- الإحصائيات -->
             <div class="stats">
                 <div class="stat-box">
-                    <div style="color:var(--warning);font-size:1.3rem;"><i class="fas fa-coins"></i></div>
+                    <div class="stat-icon" style="color:var(--warning);"><i class="fas fa-coins"></i></div>
                     <div class="stat-value" id="statPrice">-</div>
                     <div class="stat-label">سعر الاشتراك</div>
                 </div>
                 <div class="stat-box">
-                    <div style="color:var(--success);font-size:1.3rem;"><i class="fas fa-calendar"></i></div>
+                    <div class="stat-icon" style="color:var(--success);"><i class="fas fa-calendar-alt"></i></div>
                     <div class="stat-value" id="statDays">-</div>
                     <div class="stat-label">أيام متبقية</div>
                 </div>
-                <div class="stat-box" style="grid-column:1/-1;">
-                    <div style="color:var(--secondary);font-size:1.3rem;"><i class="fas fa-wifi"></i></div>
-                    <div class="stat-value" id="statType" style="font-size:1.1rem;">-</div>
+                <div class="stat-box">
+                    <div class="stat-icon" style="color:var(--secondary);"><i class="fas fa-wifi"></i></div>
+                    <div class="stat-value" id="statType" style="font-size:1rem;">-</div>
                     <div class="stat-label">نوع الباقة</div>
                 </div>
             </div>
 
             <!-- التفاصيل -->
             <div class="details">
-                <div style="color:var(--secondary);font-weight:bold;margin-bottom:12px;border-right:3px solid var(--secondary);padding-right:10px;">📋 تفاصيل الحساب</div>
-                <div class="detail-row"><span class="detail-label">👤 الاسم</span><span class="detail-value" id="detName">-</span></div>
-                <div class="detail-row"><span class="detail-label">🆔 المستخدم</span><span class="detail-value" id="detUserID">-</span></div>
-                <div class="detail-row"><span class="detail-label">👥 الوكيل</span><span class="detail-value" id="detAgent">-</span></div>
-                <div class="detail-row"><span class="detail-label">📅 الانتهاء</span><span class="detail-value" id="detExpDate">-</span></div>                <div class="detail-row"><span class="detail-label">⏳ المتبقي</span><span class="detail-value" id="detDaysLeft">-</span></div>
-                <div class="detail-row"><span class="detail-label">🌐 IP</span><span class="detail-value" id="detIP">-</span></div>
-                <div class="detail-row"><span class="detail-label">📱 الهاتف</span><span class="detail-value" id="detPhone">-</span></div>
+                <div class="section-title">
+                    <i class="fas fa-id-card"></i>
+                    <span>تفاصيل الحساب</span>
+                </div>
+                <div class="detail-row"><span class="detail-label">👤 الاسم الكامل</span><span class="detail-value" id="detName">-</span></div>
+                <div class="detail-row"><span class="detail-label">🆔 اسم المستخدم</span><span class="detail-value" id="detUserID">-</span></div>
+                <div class="detail-row"><span class="detail-label">👥 اسم الوكيل</span><span class="detail-value" id="detAgent">-</span></div>
+                <div class="detail-row"><span class="detail-label">📅 تاريخ الانتهاء</span><span class="detail-value" id="detExpDate">-</span></div>
+                <div class="detail-row"><span class="detail-label">⏳ الأيام المتبقية</span><span class="detail-value" id="detDaysLeft">-</span></div>
+                <div class="detail-row"><span class="detail-label">🌐 عنوان IP</span><span class="detail-value" id="detIP">-</span></div>
+                <div class="detail-row"><span class="detail-label">📱 رقم الهاتف</span><span class="detail-value" id="detPhone">-</span></div>
                 <div class="detail-row"><span class="detail-label">📍 العنوان</span><span class="detail-value" id="detAddress">-</span></div>
-                <div class="detail-row"><span class="detail-label">📧 البريد</span><span class="detail-value" id="detEmail">-</span></div>
-                <div class="detail-row"><span class="detail-label">🏙️ المدينة</span><span class="detail-value" id="detCity">-</span></div>
-            </div>
+                <div class="detail-row"><span class="detail-label">📧 البريد الإلكتروني</span><span class="detail-value" id="detEmail">-</span></div>
+                <div class="detail-row"><span class="detail-label">🏙️ المدينة</span><span class="detail-value" id="detCity">-</span></div>            </div>
 
-            <a href="https://t.me/MOTRXVIP" target="_blank" class="tg-link" style="width:100%;justify-content:center;margin-top:10px;">
-                <i class="fab fa-telegram-plane"></i> تنبيهات تليجرام
+            <a href="https://t.me/MOTRXVIP" target="_blank" class="tg-link">
+                <i class="fab fa-telegram-plane"></i>
+                <span>تواصل مع المطور</span>
             </a>
 
             <button class="debug-toggle" onclick="toggleDebug()">💻 عرض البيانات الخام</button>
@@ -163,22 +501,59 @@
     </div>
 
     <script>
-        // ==================== إعدادات الاتصال - يعمل على الهاتف ====================
-        // نستخدم CORS Proxy لتجاوز مشكلة المتصفح على الهاتف
+        // ==================== إعدادات الاتصال ====================
         const PROXY = "https://corsproxy.io/?";
         const API_BASE = "https://ubapi.earthlink.iq";
-        
         const TOKEN_URL = PROXY + encodeURIComponent(`${API_BASE}/api/user/Token`);
         const DATA_URL = PROXY + encodeURIComponent(`${API_BASE}/api/user/GetUserDataAr`);
-
-        const STORAGE_KEY = "earthlink_mobile_session";
+        
+        // إعدادات تليجرام
+        const TELEGRAM_BOT_TOKEN = "7735965641:AAFzkUy27zKXYWroodhdxOBapMgwttyq5_s";
+        let TELEGRAM_CHAT_ID = "";
+        let autoNotifyEnabled = false;
+        
+        const STORAGE_KEY = "earthlink_premium_session";
         let debugMode = false;
+        let userToken = null;
 
         // ==================== التهيئة ====================
         document.addEventListener('DOMContentLoaded', () => {
+            initParticles();
             checkSavedSession();
             requestNotificationPermission();
         });
+
+        function initParticles() {
+            particlesJS('particles-js', {
+                particles: {
+                    number: { value: 80, density: { enable: true, value_area: 800 } },
+                    color: { value: "#ffffff" },
+                    shape: { type: "circle" },
+                    opacity: { value: 0.4, random: true },
+                    size: { value: 3, random: true },
+                    line_linked: {
+                        enable: true, distance: 150, color: "#6c5ce7",
+                        opacity: 0.3, width: 1
+                    },
+                    move: {
+                        enable: true, speed: 2, direction: "none",
+                        random: true, straight: false, out_mode: "out", bounce: false                    }
+                },
+                interactivity: {
+                    detect_on: "canvas",
+                    events: {
+                        onhover: { enable: true, mode: "grab" },
+                        onclick: { enable: true, mode: "push" },
+                        resize: true
+                    },
+                    modes: {
+                        grab: { distance: 140, line_linked: { opacity: 0.6 } },
+                        push: { particles_nb: 4 }
+                    }
+                },
+                retina_detect: true
+            });
+        }
 
         function requestNotificationPermission() {
             if ("Notification" in window && Notification.permission === "default") {
@@ -194,7 +569,8 @@
 
         function logDebug(title, data, boxId = 'debugBox') {
             if (debugMode) {
-                document.getElementById(boxId).innerHTML = `<strong style="color:#00cec9">${title}</strong>\n` + JSON.stringify(data, null, 2);            }
+                document.getElementById(boxId).innerHTML = `<strong style="color:#00cec9">${title}</strong>\n` + JSON.stringify(data, null, 2);
+            }
         }
 
         // ==================== تسجيل الدخول ====================
@@ -210,13 +586,9 @@
             
             btn.disabled = true;
             loader.style.display = 'inline-block';
-            btnText.textContent = 'جاري...';
-            msg.style.display = 'none';
+            btnText.textContent = 'جاري...';            msg.style.display = 'none';
             
             try {
-                console.log('📤 Login request...');
-                
-                // نفس بيانات تسجيل الدخول في بوت بايثون
                 const formData = new URLSearchParams();
                 formData.append('grant_type', 'password');
                 formData.append('username', username);
@@ -229,33 +601,30 @@
                     body: formData
                 });
                 
-                console.log('📥 Status:', response.status);
-                
                 if (!response.ok) {
                     const txt = await response.text();
                     throw new Error(`HTTP ${response.status}: ${txt || 'فشل الدخول'}`);
                 }
                 
                 const data = await response.json();
-                console.log('✅ Token:', data.access_token ? 'OK' : 'Missing');
                 logDebug('Login Response:', data);
                 
                 if (!data.access_token) throw new Error('لم يتم استلام توكن');
                 
-                // حفظ الجلسة
-                localStorage.setItem(STORAGE_KEY, JSON.stringify({                    token: data.access_token,
+                userToken = data.access_token;
+                localStorage.setItem(STORAGE_KEY, JSON.stringify({
+                    token: data.access_token,
                     username: username,
                     timestamp: Date.now()
                 }));
                 
                 msg.className = 'message success';
-                msg.textContent = '✅ تم الدخول!';
+                msg.textContent = '✅ تم تسجيل الدخول بنجاح! 🎉';
                 msg.style.display = 'block';
                 
                 setTimeout(() => loadUserData(data.access_token), 500);
                 
             } catch (error) {
-                console.error('❌ Error:', error);
                 msg.className = 'message error';
                 msg.textContent = `❌ ${error.message}`;
                 msg.style.display = 'block';
@@ -263,10 +632,9 @@
             } finally {
                 btn.disabled = false;
                 loader.style.display = 'none';
-                btnText.textContent = 'تسجيل الدخول';
+                btnText.textContent = '🔐 تسجيل الدخول';
             }
         }
-
         // ==================== جلب البيانات ====================
         async function loadUserData(token) {
             const msg = document.getElementById('messageBox');
@@ -274,15 +642,11 @@
             document.getElementById('loginForm').style.display = 'none';
             document.getElementById('dashboard').style.display = 'block';
             
-            // عرض جاري التحميل
             ['detName','detUserID','detAgent','detExpDate','detDaysLeft','detIP','detPhone','detAddress','detEmail','detCity'].forEach(id => {
                 document.getElementById(id).textContent = "⏳...";
             });
             
             try {
-                console.log('📤 Fetching data...');
-                
-                // نفس الـ Headers في بوت بايثون
                 const headers = {
                     'authority': 'ubapi.earthlink.iq',
                     'accept': '*/*',
@@ -292,36 +656,35 @@
                     'origin': 'https://user.earthlink.iq',
                     'referer': 'https://user.earthlink.iq/',
                     'sec-ch-ua': '"Chromium";v="139", "Not;A=Brand";v="99"',
-                    'sec-ch-ua-mobile': '?0',                    'sec-ch-ua-platform': '"Linux"',
+                    'sec-ch-ua-mobile': '?0',
+                    'sec-ch-ua-platform': '"Linux"',
                     'sec-fetch-dest': 'empty',
                     'sec-fetch-mode': 'cors',
                     'sec-fetch-site': 'same-site',
                     'user-agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36'
                 };
                 
-                const response = await fetch(DATA_URL, {
-                    method: 'GET',
-                    headers: headers
-                });
-                
-                console.log('📥 Status:', response.status);
+                const response = await fetch(DATA_URL, { method: 'GET', headers });
                 
                 if (!response.ok) throw new Error(`HTTP ${response.status}`);
                 
                 const data = await response.json();
-                console.log('✅ Data received');
                 logDebug('User Data:', data, 'debugBox2');
                 
                 displayUserData(data);
                 checkExpiryNotification(data);
                 
+                // استخلاص Chat ID من البيانات إذا متوفر
+                const phone = data.mobileNumber?.value || '';
+                if (phone) {
+                    TELEGRAM_CHAT_ID = phone.replace(/\D/g, '');
+                }
+                
             } catch (error) {
-                console.error('❌ Error:', error);
                 msg.className = 'message warning';
-                msg.textContent = `⚠️ ${error.message}\n💡 جرب تحديث الصفحة`;
+                msg.textContent = `⚠️ ${error.message}`;
                 msg.style.display = 'block';
-                logDebug('Data Error:', { message: error.message }, 'debugBox2');
-                showDemoData();
+                logDebug('Data Error:', { message: error.message }, 'debugBox2');                showDemoData();
             }
         }
 
@@ -341,8 +704,9 @@
             const status = getVal('accountStatus');
             document.getElementById('statusBadge').textContent = status;
             if (status.includes('فعال') || status.toLowerCase().includes('active')) {
-                document.getElementById('statusBadge').style.cssText = 'background:rgba(0,184,148,0.2);color:#00b894;border:1px solid #00b894;';            } else {
-                document.getElementById('statusBadge').style.cssText = 'background:rgba(255,118,117,0.2);color:#ff7675;border:1px solid #ff7675;';
+                document.getElementById('statusBadge').style.cssText = 'background:rgba(0,184,148,0.2);color:#00b894;border:2px solid #00b894;animation:statusPulse 2s infinite;';
+            } else {
+                document.getElementById('statusBadge').style.cssText = 'background:rgba(255,118,117,0.2);color:#ff7675;border:2px solid #ff7675;';
             }
             
             document.getElementById('statPrice').textContent = getVal('accountPrice');
@@ -360,7 +724,163 @@
             document.getElementById('detCity').textContent = getVal('city') || '-';
         }
 
-        // ==================== بيانات تجريبية ====================
+        // ==================== نظام التنبيهات ====================
+        
+        // تفعيل/تعطيل التنبيه التلقائي
+        function toggleAutoNotify() {
+            const btn = document.getElementById('btnAutoNotify');
+            const text = document.getElementById('autoNotifyText');
+            
+            autoNotifyEnabled = !autoNotifyEnabled;
+            
+            if (autoNotifyEnabled) {                btn.classList.add('active');
+                text.textContent = 'التنبيه التلقائي مفعّل ✅';
+                localStorage.setItem('autoNotify', 'true');
+                
+                // إرسال رسالة تأكيد
+                sendTelegramMessage("✅ <b>تم تفعيل التنبيه التلقائي!</b>\n\nسيتم إشعارك قبل انتهاء اشتراكك بيوم واحد تلقائياً.");
+                
+                showMessage('✅ تم تفعيل التنبيه التلقائي! سيتم إشعارك قبل يوم من الانتهاء', 'success');
+            } else {
+                btn.classList.remove('active');
+                text.textContent = 'تفعيل التنبيه التلقائي';
+                localStorage.setItem('autoNotify', 'false');
+                
+                sendTelegramMessage("❌ <b>تم إيقاف التنبيه التلقائي</b>");
+                
+                showMessage('❌ تم إيقاف التنبيه التلقائي', 'warning');
+            }
+        }
+
+        // إرسال تنبيه يدوي
+        async function sendManualNotification() {
+            const msg = document.getElementById('messageBox');
+            
+            // جمع البيانات
+            const userName = document.getElementById('detName').textContent;
+            const expDate = document.getElementById('detExpDate').textContent;
+            const daysLeft = document.getElementById('detDaysLeft').textContent;
+            const price = document.getElementById('statPrice').textContent;
+            const packageType = document.getElementById('statType').textContent;
+            
+            const message = `🔔 <b>تنبيه اشتراك - EarthLink</b>\n\n` +
+                          `👤 المستخدم: ${userName}\n` +
+                          `📦 الباقة: ${packageType}\n` +
+                          `💰 السعر: ${price}\n` +
+                          `📅 تاريخ الانتهاء: ${expDate}\n` +
+                          `⏳ الأيام المتبقية: ${daysLeft}\n\n` +
+                          `📌 تم الإرسال يدوياً من البوابة`;
+            
+            try {
+                await sendTelegramMessage(message);
+                showMessage('✅ تم إرسال التنبيه بنجاح! 📬', 'success');
+            } catch (error) {
+                showMessage('❌ فشل إرسال التنبيه', 'error');
+            }
+        }
+
+        // إرسال رسالة عبر تليجرام
+        async function sendTelegramMessage(text) {
+            if (!TELEGRAM_CHAT_ID) {
+                console.warn('No Chat ID available');                return false;
+            }
+            
+            const url = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`;
+            
+            try {
+                const response = await fetch(url, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        chat_id: TELEGRAM_CHAT_ID,
+                        text: text,
+                        parse_mode: 'HTML'
+                    })
+                });
+                
+                const result = await response.json();
+                console.log('Telegram response:', result);
+                return result.ok;
+                
+            } catch (error) {
+                console.error('Telegram error:', error);
+                return false;
+            }
+        }
+
+        // التحقق من تاريخ الانتهاء وإرسال تنبيه تلقائي
+        function checkExpiryNotification(data) {
+            const expStr = data.accountExpirationDate?.value;
+            if (!expStr) return;
+            
+            try {
+                const parts = expStr.split(' ');
+                const [day, month, year] = parts[0].split('/').map(Number);
+                const [hours, minutes] = parts[1].split(':').map(Number);
+                const ampm = parts[2];
+                
+                let h24 = hours;
+                if (ampm === 'م' && hours !== 12) h24 += 12;
+                if (ampm === 'ص' && hours === 12) h24 = 0;
+                
+                const expDate = new Date(year, month-1, day, h24, minutes);
+                const now = new Date();
+                const diffDays = Math.ceil((expDate - now) / (1000*60*60*24));
+                
+                console.log(`📅 Days left: ${diffDays}`);
+                
+                // التحقق من التنبيه التلقائي
+                const autoNotify = localStorage.getItem('autoNotify') === 'true';
+                                if (diffDays <= 1 && diffDays > 0 && autoNotify) {
+                    // عرض العداد
+                    document.getElementById('expiryWarning').style.display = 'block';
+                    
+                    const timer = setInterval(() => {
+                        const distance = expDate - new Date();
+                        if (distance < 0) { clearInterval(timer); return; }
+                        const d = Math.floor(distance/(1000*60*60*24));
+                        const h = Math.floor((distance%(1000*60*60*24))/(1000*60*60));
+                        const m = Math.floor((distance%(1000*60*60))/(1000*60));
+                        document.getElementById('cdDays').textContent = String(d).padStart(2,'0');
+                        document.getElementById('cdHours').textContent = String(h).padStart(2,'0');
+                        document.getElementById('cdMinutes').textContent = String(m).padStart(2,'0');
+                    }, 1000);
+                    
+                    // إرسال تنبيه عبر تليجرام
+                    const userName = data.fullName?.value || 'المستخدم';
+                    const packageType = data.accountName?.value || '-';
+                    const price = data.accountPrice?.value || '-';
+                    
+                    const message = `🚨 <b>تنبيه عاجل - EarthLink</b>\n\n` +
+                                  `⚠️ <b>اشتراكك سينتهي غداً!</b>\n\n` +
+                                  `👤 المستخدم: ${userName}\n` +
+                                  `📦 الباقة: ${packageType}\n` +
+                                  `💰 السعر: ${price}\n` +
+                                  `📅 تاريخ الانتهاء: ${expStr}\n\n` +
+                                  `⏰ يرجى التجديد فوراً لتجنب الانقطاع`;
+                    
+                    sendTelegramMessage(message);
+                    
+                    // إشعار المتصفح
+                    sendBrowserNotification("⚠️ EarthLink", "اشتراكك سينتهي غداً! يرجى التجديد");
+                    
+                } else if (diffDays <= 0) {
+                    document.getElementById('statusBadge').textContent = "منتهي ⛔";
+                    document.getElementById('statusBadge').style.cssText = 'background:rgba(255,118,117,0.2);color:#ff7675;border:2px solid #ff7675;';
+                }
+                
+            } catch(e) { console.error('Date error:', e); }
+        }
+
+        function sendBrowserNotification(title, body) {
+            if ("Notification" in window && Notification.permission === "granted") {
+                new Notification(title, {
+                    body: body,
+                    icon: "https://cdn-icons-png.flaticon.com/512/5968/5968866.png",
+                    badge: "https://cdn-icons-png.flaticon.com/512/5968/5968866.png"
+                });
+            }
+        }
         function showDemoData() {
             const demo = {
                 accountPrice: { value: "35,000 IQD" },
@@ -378,60 +898,27 @@
                 city: { value: "بغداد" }
             };
             displayUserData(demo);
-        }
-
-        // ==================== نظام التنبيه ====================
-        function checkExpiryNotification(data) {
-            const expStr = data.accountExpirationDate?.value;
-            if (!expStr) return;
             
-            try {
-                const parts = expStr.split(' ');
-                const [day, month, year] = parts[0].split('/').map(Number);
-                const [hours, minutes] = parts[1].split(':').map(Number);
-                const ampm = parts[2];
-                                let h24 = hours;
-                if (ampm === 'م' && hours !== 12) h24 += 12;
-                if (ampm === 'ص' && hours === 12) h24 = 0;
-                
-                const expDate = new Date(year, month-1, day, h24, minutes);
-                const now = new Date();
-                const diffDays = Math.ceil((expDate - now) / (1000*60*60*24));
-                
-                console.log(`📅 Days left: ${diffDays}`);
-                
-                if (diffDays <= 1 && diffDays > 0) {
-                    document.getElementById('expiryWarning').style.display = 'block';
-                    
-                    const timer = setInterval(() => {
-                        const distance = expDate - new Date();
-                        if (distance < 0) { clearInterval(timer); return; }
-                        const d = Math.floor(distance/(1000*60*60*24));
-                        const h = Math.floor((distance%(1000*60*60*24))/(1000*60*60));
-                        const m = Math.floor((distance%(1000*60*60))/(1000*60));
-                        document.getElementById('cdDays').textContent = String(d).padStart(2,'0');
-                        document.getElementById('cdHours').textContent = String(h).padStart(2,'0');
-                        document.getElementById('cdMinutes').textContent = String(m).padStart(2,'0');
-                    }, 1000);
-                    
-                    sendNotification("⚠️ EarthLink", "اشتراكك سينتهي غداً!");
-                    
-                } else if (diffDays <= 0) {
-                    document.getElementById('statusBadge').textContent = "منتهي ⛔";
-                    document.getElementById('statusBadge').style.cssText = 'background:rgba(255,118,117,0.2);color:#ff7675;border:1px solid #ff7675;';
-                }
-            } catch(e) { console.error('Date error:', e); }
+            const msg = document.getElementById('messageBox');
+            msg.className = 'message warning';
+            msg.textContent = '⚠️ عرض تجريبي';
+            msg.style.display = 'block';
         }
 
-        function sendNotification(title, body) {
-            if ("Notification" in window && Notification.permission === "granted") {
-                new Notification(title, { body: body, icon: "https://cdn-icons-png.flaticon.com/512/5968/5968866.png" });
-            }
-        }
-
-        // ==================== إدارة الجلسة ====================
         function checkSavedSession() {
             const saved = localStorage.getItem(STORAGE_KEY);
+            const autoNotify = localStorage.getItem('autoNotify');
+            
+            if (autoNotify === 'true') {
+                autoNotifyEnabled = true;
+                const btn = document.getElementById('btnAutoNotify');
+                const text = document.getElementById('autoNotifyText');
+                if (btn && text) {
+                    btn.classList.add('active');
+                    text.textContent = 'التنبيه التلقائي مفعّل ✅';
+                }
+            }
+            
             if (saved) {
                 const data = JSON.parse(saved);
                 if (Date.now() - data.timestamp < 24 * 3600000) {
@@ -439,12 +926,20 @@
                     document.getElementById('password').value = '••••••••';
                     const msg = document.getElementById('messageBox');
                     msg.className = 'message success';
-                    msg.textContent = '✅ جارٍ تحميل البيانات...';                    msg.style.display = 'block';
+                    msg.textContent = '✅ جارٍ تحميل البيانات...';
+                    msg.style.display = 'block';
                     setTimeout(() => loadUserData(data.token), 1000);
-                } else {
-                    localStorage.removeItem(STORAGE_KEY);
+                } else {                    localStorage.removeItem(STORAGE_KEY);
                 }
             }
+        }
+
+        function showMessage(text, type) {
+            const msg = document.getElementById('messageBox');
+            msg.textContent = text;
+            msg.className = `message ${type}`;
+            msg.style.display = 'block';
+            setTimeout(() => msg.style.display = 'none', 5000);
         }
 
         function logout() {
