@@ -3,171 +3,63 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🌐 EarthLink Premium Portal</title>
-    <!-- مكتبة الأيقونات -->
+    <title>EarthLink Portal</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- مكتبة الجسيمات للخلفية -->
-    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
-    
     <style>
-        /* ==================== إعدادات التصميم الأساسية ==================== */
-        :root {
-            --primary: #6c5ce7;
-            --secondary: #00cec9;
-            --accent: #fd79a8;
-            --warning: #ffeaa7;
-            --danger: #ff7675;
-            --success: #00b894;
-            --dark-bg: #0f0c29;
-            --glass-bg: rgba(255, 255, 255, 0.05);
-            --glass-border: rgba(255, 255, 255, 0.1);
-            --text-glow: 0 0 10px rgba(255, 255, 255, 0.5);
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            outline: none;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, sans-serif; }
         body {
             background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
             color: #fff;
             min-height: 100vh;
-            overflow-x: hidden;
             display: flex;
             justify-content: center;
             align-items: center;
-            position: relative;
+            padding: 20px;
         }
-
-        /* خلفية الجسيمات */
-        #particles-js {
-            position: absolute;
-            width: 100%;
-            height: 100%;            top: 0;
-            left: 0;
-            z-index: 0;
-        }
-
-        /* تأثيرات الإضاءة الخلفية */
-        .glow-orb {
-            position: absolute;
-            border-radius: 50%;
-            filter: blur(80px);
-            z-index: 0;
-            animation: floatOrb 10s infinite alternate;
-        }
-        .orb-1 { width: 300px; height: 300px; background: var(--primary); top: -50px; left: -50px; opacity: 0.4; }
-        .orb-2 { width: 400px; height: 400px; background: var(--secondary); bottom: -100px; right: -100px; opacity: 0.3; animation-delay: -5s; }
-        .orb-3 { width: 200px; height: 200px; background: var(--accent); top: 40%; left: 60%; opacity: 0.2; animation-duration: 15s; }
-
-        @keyframes floatOrb {
-            0% { transform: translate(0, 0); }
-            100% { transform: translate(30px, 50px); }
-        }
-
-        /* ==================== الحاوية الرئيسية ==================== */
         .container {
-            position: relative;
-            z-index: 10;
-            width: 90%;
-            max-width: 500px;
-            perspective: 1000px;
-        }
-
-        /* البطاقات الزجاجية */
-        .card {
-            background: var(--glass-bg);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid var(--glass-border);
+            background: rgba(255,255,255,0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.1);
             border-radius: 20px;
             padding: 30px;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
-            transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
-            animation: slideUp 0.8s ease-out;
-            position: relative;
-            overflow: hidden;
+            width: 100%;
+            max-width: 600px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.5);
         }
-
-        .card::before {
-            content: '';
-            position: absolute;
-            top: 0; left: -100%;            width: 100%; height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
-            transition: 0.5s;
-        }
-
-        .card:hover::before {
-            left: 100%;
-        }
-
-        @keyframes slideUp {
-            from { opacity: 0; transform: translateY(50px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* ==================== نموذج تسجيل الدخول ==================== */
-        .login-header {
+        .header {
             text-align: center;
             margin-bottom: 30px;
         }
-
-        .login-header i {
+        .header i {
             font-size: 3rem;
-            background: linear-gradient(45deg, var(--secondary), var(--primary));
+            background: linear-gradient(45deg, #00cec9, #6c5ce7);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             margin-bottom: 10px;
-            animation: pulseIcon 2s infinite;
         }
-
-        @keyframes pulseIcon {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.1); }
-            100% { transform: scale(1); }
-        }
-
         .input-group {
-            position: relative;
             margin-bottom: 20px;
+            position: relative;
         }
-
+        .input-group input {
+            width: 100%;
+            padding: 15px 15px 15px 45px;
+            background: rgba(0,0,0,0.3);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 12px;
+            color: #fff;            font-size: 1rem;
+        }
         .input-group i {
             position: absolute;
+            left: 15px;
             top: 50%;
-            right: 15px;
             transform: translateY(-50%);
-            color: var(--secondary);
-            transition: 0.3s;
+            color: #00cec9;
         }
-
-        .input-group input {            width: 100%;
-            padding: 15px 50px 15px 15px;
-            background: rgba(0, 0, 0, 0.3);
-            border: 1px solid var(--glass-border);
-            border-radius: 12px;
-            color: #fff;
-            font-size: 1rem;
-            transition: 0.3s;
-        }
-
-        .input-group input:focus {
-            border-color: var(--secondary);
-            box-shadow: 0 0 15px rgba(0, 206, 201, 0.3);
-        }
-
-        .input-group input:focus + i {
-            color: var(--accent);
-        }
-
-        .btn-main {
+        .btn {
             width: 100%;
             padding: 15px;
-            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            background: linear-gradient(45deg, #6c5ce7, #00cec9);
             border: none;
             border-radius: 12px;
             color: #fff;
@@ -175,625 +67,412 @@
             font-weight: bold;
             cursor: pointer;
             transition: 0.3s;
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(108, 92, 231, 0.4);
         }
-
-        .btn-main:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(108, 92, 231, 0.6);
-        }
-
-        .btn-main:active {
-            transform: scale(0.98);
-        }
-
-        /* ==================== لوحة المعلومات (Dashboard) ==================== */
-        #dashboardSection {
-            display: none;
-            max-width: 800px;
-        }
-        .user-info-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 25px;
-            border-bottom: 1px solid var(--glass-border);
-            padding-bottom: 15px;
-        }
-
-        .status-badge {
-            padding: 5px 15px;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            font-weight: bold;
-            background: rgba(0, 184, 148, 0.2);
-            color: var(--success);
-            border: 1px solid var(--success);
-            animation: glowStatus 2s infinite;
-        }
-
-        @keyframes glowStatus {
-            0%, 100% { box-shadow: 0 0 5px var(--success); }
-            50% { box-shadow: 0 0 15px var(--success); }
-        }
-
-        .stats-grid {
+        .btn:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(108,92,231,0.5); }
+        .btn:disabled { opacity: 0.6; cursor: not-allowed; }
+        
+        #dashboard { display: none; }
+        
+        .stats {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
             gap: 15px;
             margin-bottom: 25px;
         }
-
         .stat-box {
-            background: rgba(255, 255, 255, 0.03);
+            background: rgba(255,255,255,0.05);
             padding: 15px;
-            border-radius: 15px;
+            border-radius: 12px;
             text-align: center;
-            border: 1px solid var(--glass-border);
-            transition: 0.3s;
+            border: 1px solid rgba(255,255,255,0.1);
         }
-
-        .stat-box:hover {
-            background: rgba(255, 255, 255, 0.08);
-            transform: translateY(-5px);
-        }
-
         .stat-value {
             font-size: 1.5rem;
             font-weight: bold;
-            color: var(--secondary);            margin: 5px 0;
-            text-shadow: var(--text-glow);
+            color: #00cec9;
+            margin: 5px 0;
         }
-
-        .stat-label {
-            font-size: 0.85rem;
-            color: rgba(255, 255, 255, 0.7);
+        .stat-label { font-size: 0.85rem; color: rgba(255,255,255,0.6); }
+        
+        .details {
+            background: rgba(255,255,255,0.03);
+            border-radius: 12px;            padding: 20px;
+            margin-top: 20px;
         }
-
-        .details-list {
-            list-style: none;
-        }
-
-        .details-list li {
+        .detail-row {
             display: flex;
             justify-content: space-between;
             padding: 12px 0;
-            border-bottom: 1px dashed rgba(255, 255, 255, 0.1);
-            font-size: 0.95rem;
+            border-bottom: 1px dashed rgba(255,255,255,0.1);
         }
-
-        .details-list li:last-child {
-            border-bottom: none;
-        }
-
-        .details-list span.label {
-            color: rgba(255, 255, 255, 0.6);
-        }
-
-        .details-list span.value {
-            color: #fff;
-            font-weight: 500;
-            direction: ltr;
-            text-align: left;
-        }
-
-        /* عداد الوقت */
-        .countdown-container {
-            background: linear-gradient(45deg, rgba(255, 118, 117, 0.1), rgba(255, 193, 7, 0.1));
-            border: 1px solid rgba(255, 193, 7, 0.3);
-            border-radius: 15px;
-            padding: 20px;
-            text-align: center;
-            margin-bottom: 25px;
-            display: none; /* يظهر فقط عند قرب الانتهاء */
-        }
-
-        .countdown-timer {
-            display: flex;
-            justify-content: center;            gap: 15px;
-            margin-top: 10px;
-        }
-
-        .time-box {
-            background: rgba(0, 0, 0, 0.4);
-            padding: 10px;
-            border-radius: 10px;
-            min-width: 60px;
-        }
-
-        .time-val {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: var(--danger);
-        }
-
-        .time-label {
-            font-size: 0.7rem;
-            color: rgba(255, 255, 255, 0.6);
-        }
-
-        /* زر تليجرام */
-        .tg-btn {
-            background: #0088cc;
-            color: white;
-            text-decoration: none;
-            padding: 10px 20px;
+        .detail-row:last-child { border-bottom: none; }
+        .detail-label { color: rgba(255,255,255,0.6); }
+        .detail-value { color: #fff; font-weight: 500; text-align: left; }
+        
+        .message {
+            padding: 12px 20px;
             border-radius: 8px;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            font-weight: bold;
-            transition: 0.3s;
-            margin-top: 10px;
+            margin-bottom: 15px;
+            display: none;
+            animation: slideDown 0.3s;
         }
-        .tg-btn:hover { background: #0099e6; box-shadow: 0 0 15px rgba(0, 136, 204, 0.5); }
-
-        .logout-btn {
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .message.error { background: rgba(255,118,117,0.2); border: 1px solid #ff7675; color: #ff7675; }
+        .message.success { background: rgba(0,184,148,0.2); border: 1px solid #00b894; color: #00b894; }
+        
+        .logout {
             background: transparent;
-            border: 1px solid var(--danger);
-            color: var(--danger);
-            padding: 8px 15px;
+            border: 1px solid #ff7675;
+            color: #ff7675;
+            padding: 8px 20px;
             border-radius: 8px;
             cursor: pointer;
-            transition: 0.3s;
+            margin-top: 15px;
+            width: 100%;
         }
-        .logout-btn:hover { background: var(--danger); color: white; }
-
-        /* رسائل الخطأ والنجاح */        .message-box {
-            position: fixed;
-            top: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            padding: 15px 30px;
-            border-radius: 50px;
-            z-index: 100;
-            font-weight: bold;
+        .logout:hover { background: #ff7675; color: #fff; }
+        
+        .debug {
+            background: rgba(0,0,0,0.5);
+            padding: 10px;
+            border-radius: 8px;
+            margin-top: 15px;
+            font-size: 0.8rem;
+            max-height: 200px;
+            overflow-y: auto;
             display: none;
-            animation: slideDown 0.5s ease;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            direction: ltr;
+            text-align: left;        }
+        .debug-toggle {
+            background: transparent;
+            border: 1px solid rgba(255,255,255,0.2);
+            color: rgba(255,255,255,0.6);
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+            width: 100%;
         }
-        .msg-error { background: rgba(255, 118, 117, 0.9); color: white; }
-        .msg-success { background: rgba(0, 184, 148, 0.9); color: white; }
-        .msg-warning { background: rgba(255, 193, 7, 0.9); color: #333; }
-
-        @keyframes slideDown {
-            from { top: -50px; opacity: 0; }
-            to { top: 20px; opacity: 1; }
-        }
-
-        /* Loading Spinner */
-        .loader {
-            border: 4px solid rgba(255,255,255,0.1);
-            border-left-color: var(--secondary);
-            border-radius: 50%;
-            width: 30px;
-            height: 30px;
-            animation: spin 1s linear infinite;
-            display: inline-block;
-            vertical-align: middle;
-            margin-left: 10px;
-            display: none;
-        }
-        @keyframes spin { 100% { transform: rotate(360deg); } }
-
     </style>
 </head>
 <body>
 
-    <!-- الخلفية المتحركة -->
-    <div id="particles-js"></div>
-    <div class="glow-orb orb-1"></div>
-    <div class="glow-orb orb-2"></div>
-    <div class="glow-orb orb-3"></div>
-
-    <!-- رسائل التنبيه -->
-    <div id="messageBox" class="message-box"></div>
-    <div class="container">
+<div class="container">
+    <div id="loginForm">
+        <div class="header">
+            <i class="fas fa-satellite-dish"></i>
+            <h2>EarthLink Portal</h2>
+        </div>
         
-        <!-- قسم تسجيل الدخول -->
-        <div class="card" id="loginSection">
-            <div class="login-header">
-                <i class="fas fa-satellite-dish"></i>
-                <h2>EarthLink Portal</h2>
-                <p style="color: rgba(255,255,255,0.6); font-size: 0.9rem;">بوابة إدارة الاشتراكات الذكية</p>
+        <div id="messageBox" class="message"></div>
+        
+        <form onsubmit="handleLogin(event)">
+            <div class="input-group">
+                <input type="text" id="username" placeholder="اسم المستخدم" required>
+                <i class="fas fa-user"></i>
             </div>
-
-            <form id="loginForm">
-                <div class="input-group">
-                    <input type="text" id="username" placeholder="اسم المستخدم" required autocomplete="off">
-                    <i class="fas fa-user"></i>
-                </div>
-                <div class="input-group">
-                    <input type="password" id="password" placeholder="كلمة المرور" required>
-                    <i class="fas fa-lock"></i>
-                </div>
-                
-                <button type="submit" class="btn-main">
-                    <span id="btnText">تسجيل الدخول</span>
-                    <div class="loader" id="loginLoader"></div>
-                </button>
-            </form>
-
-            <div style="text-align: center; margin-top: 20px; font-size: 0.85rem; color: rgba(255,255,255,0.5);">
-                <i class="fas fa-shield-alt"></i> اتصال آمن ومشفّر مع سيرفرات EarthLink
+            <div class="input-group">
+                <input type="password" id="password" placeholder="كلمة المرور" required>
+                <i class="fas fa-lock"></i>
             </div>
-        </div>
-
-        <!-- قسم لوحة المعلومات -->
-        <div class="card" id="dashboardSection">
-            <div class="user-info-header">
-                <div>
-                    <h3 id="dashUserName">مرحباً، المستخدم</h3>
-                    <span class="status-badge" id="dashStatus">نشط</span>
-                </div>
-                <button class="logout-btn" onclick="logout()">
-                    <i class="fas fa-sign-out-alt"></i> خروج
-                </button>
-            </div>
-
-            <!-- تنبيه قرب الانتهاء -->
-            <div class="countdown-container" id="expiryWarning">
-                <h4 style="color: var(--danger); margin-bottom: 10px;"><i class="fas fa-exclamation-triangle"></i> تنبيه: الاشتراك يوشك على الانتهاء!</h4>
-                <div class="countdown-timer">
-                    <div class="time-box">
-                        <div class="time-val" id="cdDays">00</div>
-                        <div class="time-label">يوم</div>                    </div>
-                    <div class="time-box">
-                        <div class="time-val" id="cdHours">00</div>
-                        <div class="time-label">ساعة</div>
-                    </div>
-                    <div class="time-box">
-                        <div class="time-val" id="cdMinutes">00</div>
-                        <div class="time-label">دقيقة</div>
-                    </div>
-                </div>
-                <p style="font-size: 0.8rem; margin-top: 10px; color: rgba(255,255,255,0.7);">
-                    تم تفعيل التنبيه التلقائي. سيتم إشعارك عند اقتراب الانتهاء.
-                </p>
-            </div>
-
-            <!-- الإحصائيات السريعة -->
-            <div class="stats-grid">
-                <div class="stat-box">
-                    <i class="fas fa-coins" style="color: var(--warning);"></i>
-                    <div class="stat-value" id="statPrice">-</div>
-                    <div class="stat-label">سعر الاشتراك</div>
-                </div>
-                <div class="stat-box">
-                    <i class="fas fa-calendar-check" style="color: var(--success);"></i>
-                    <div class="stat-value" id="statDays">-</div>
-                    <div class="stat-label">أيام متبقية</div>
-                </div>
-                <div class="stat-box">
-                    <i class="fas fa-wifi" style="color: var(--secondary);"></i>
-                    <div class="stat-value" id="statType">-</div>
-                    <div class="stat-label">نوع الباقة</div>
-                </div>
-            </div>
-
-            <!-- التفاصيل الكاملة -->
-            <h4 style="margin-bottom: 15px; color: var(--secondary); border-right: 3px solid var(--secondary); padding-right: 10px;">تفاصيل الحساب</h4>
-            <ul class="details-list">
-                <li>
-                    <span class="label">الاسم الكامل</span>
-                    <span class="value" id="detName">-</span>
-                </li>
-                <li>
-                    <span class="label">اسم المستخدم (ID)</span>
-                    <span class="value" id="detUserID">-</span>
-                </li>
-                <li>
-                    <span class="label">تاريخ الانتهاء</span>
-                    <span class="value" id="detExpDate">-</span>
-                </li>
-                <li>                    <span class="label">عنوان IP</span>
-                    <span class="value" id="detIP">-</span>
-                </li>
-                <li>
-                    <span class="label">رقم الهاتف</span>
-                    <span class="value" id="detPhone">-</span>
-                </li>
-                <li>
-                    <span class="label">الوكيل</span>
-                    <span class="value" id="detAgent">-</span>
-                </li>
-            </ul>
-
-            <div style="text-align: center; margin-top: 25px; padding-top: 20px; border-top: 1px solid var(--glass-border);">
-                <p style="margin-bottom: 10px; font-size: 0.9rem;">هل تريد تنبيهات عبر تليجرام؟</p>
-                <a href="https://t.me/MOTRXVIP" target="_blank" class="tg-btn">
-                    <i class="fab fa-telegram-plane"></i> تواصل مع المطور
-                </a>
-            </div>
-        </div>
-
+            <button type="submit" class="btn" id="loginBtn">
+                <i class="fas fa-sign-in-alt"></i> تسجيل الدخول
+            </button>
+        </form>
+        
+        <button class="debug-toggle" onclick="toggleDebug()">
+            <i class="fas fa-bug"></i> عرض البيانات (Debug)
+        </button>
+        <div id="debugBox" class="debug"></div>
     </div>
 
-    <script>
-        // ==================== إعدادات API (نفس كود البوت) ====================
-        const API_URL = "https://ubapi.earthlink.iq/api/user";
-        const TOKEN_ENDPOINT = `${API_URL}/Token`;
-        const DATA_ENDPOINT = `${API_URL}/GetUserDataAr`;
+    <div id="dashboard">
+        <div class="header">
+            <h2 id="userName">مرحباً</h2>
+            <span id="statusBadge" style="background: rgba(0,184,148,0.2); color: #00b894; padding: 5px 15px; border-radius: 20px; font-size: 0.9rem;">-</span>
+        </div>
+                <div class="stats">
+            <div class="stat-box">
+                <i class="fas fa-coins" style="color: #ffeaa7; font-size: 1.5rem;"></i>
+                <div class="stat-value" id="statPrice">-</div>
+                <div class="stat-label">سعر الاشتراك</div>
+            </div>
+            <div class="stat-box">
+                <i class="fas fa-calendar" style="color: #00b894; font-size: 1.5rem;"></i>
+                <div class="stat-value" id="statDays">-</div>
+                <div class="stat-label">أيام متبقية</div>
+            </div>
+            <div class="stat-box">
+                <i class="fas fa-wifi" style="color: #00cec9; font-size: 1.5rem;"></i>
+                <div class="stat-value" id="statType">-</div>
+                <div class="stat-label">نوع الباقة</div>
+            </div>
+        </div>
         
-        // مفاتيح التخزين المحلي
-        const STORAGE_KEY_SESSION = "earthlink_session";
-        const STORAGE_KEY_DATA = "earthlink_user_data";
-        const STORAGE_KEY_EXPIRY_CHECK = "earthlink_last_check";
+        <div class="details">
+            <h3 style="margin-bottom: 15px; color: #00cec9;">تفاصيل الحساب</h3>
+            <div class="detail-row">
+                <span class="detail-label">الاسم الكامل</span>
+                <span class="detail-value" id="detName">-</span>
+            </div>
+            <div class="detail-row">
+                <span class="detail-label">اسم المستخدم (ID)</span>
+                <span class="detail-value" id="detUserID">-</span>
+            </div>
+            <div class="detail-row">
+                <span class="detail-label">تاريخ الانتهاء</span>
+                <span class="detail-value" id="detExpDate">-</span>
+            </div>
+            <div class="detail-row">
+                <span class="detail-label">عنوان IP</span>
+                <span class="detail-value" id="detIP">-</span>
+            </div>
+            <div class="detail-row">
+                <span class="detail-label">رقم الهاتف</span>
+                <span class="detail-value" id="detPhone">-</span>
+            </div>
+            <div class="detail-row">
+                <span class="detail-label">الوكيل</span>
+                <span class="detail-value" id="detAgent">-</span>
+            </div>
+        </div>
+        
+        <button class="logout" onclick="logout()">
+            <i class="fas fa-sign-out-alt"></i> خروج
+        </button>
+                <button class="debug-toggle" onclick="toggleDebug()">
+            <i class="fas fa-code"></i> عرض البيانات الخام
+        </button>
+        <div id="debugBox2" class="debug"></div>
+    </div>
+</div>
 
-        // ==================== تهيئة الصفحة ====================
-        document.addEventListener('DOMContentLoaded', () => {
-            initParticles();
-            checkSession();
-            requestNotificationPermission();
+<script>
+// ==================== نفس كود Python بالضبط ====================
+
+const API_BASE = "https://ubapi.earthlink.iq/api/user";
+let currentUser = null;
+let userToken = null;
+
+// دالة مساعدة لاستخراج القيم من الـ JSON
+function getValue(data, key) {
+    if (!data) return '-';
+    if (data[key] && data[key].value !== undefined) {
+        return data[key].value;
+    }
+    return data[key] || '-';
+}
+
+// تسجيل الدخول - مطابق لـ Python
+async function handleLogin(event) {
+    event.preventDefault();
+    
+    const username = document.getElementById('username').value;
+    const password = document.getElementById('password').value;
+    const btn = document.getElementById('loginBtn');
+    
+    btn.disabled = true;
+    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> جاري الاتصال...';
+    
+    try {
+        // نفس الكود في Python bot
+        const formData = new URLSearchParams();
+        formData.append('grant_type', 'password');
+        formData.append('username', username);
+        formData.append('password', password);
+        formData.append('Logintype', '0');
+        
+        console.log('📤 Sending login request...');
+        console.log('URL:', API_BASE + '/Token');
+        console.log('Data:', Object.fromEntries(formData));
+        
+        const response = await fetch(API_BASE + '/Token', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',            },
+            body: formData
         });
-
-        // إعداد خلفية الجسيمات
-        function initParticles() {
-            particlesJS('particles-js', {
-                particles: {
-                    number: { value: 60, density: { enable: true, value_area: 800 } },
-                    color: { value: "#ffffff" },
-                    shape: { type: "circle" },
-                    opacity: { value: 0.3, random: true },
-                    size: { value: 3, random: true },                    line_linked: { enable: true, distance: 150, color: "#6c5ce7", opacity: 0.2, width: 1 },
-                    move: { enable: true, speed: 2, direction: "none", random: false, straight: false, out_mode: "out", bounce: false }
-                },
-                interactivity: {
-                    detect_on: "canvas",
-                    events: { onhover: { enable: true, mode: "repulse" }, onclick: { enable: true, mode: "push" }, resize: true },
-                    modes: { repulse: { distance: 100, duration: 0.4 } }
-                },
-                retina_detect: true
-            });
+        
+        console.log('📥 Response status:', response.status);
+        
+        if (!response.ok) {
+            const errorText = await response.text();
+            console.error('❌ Error response:', errorText);
+            throw new Error(`HTTP ${response.status}: ${errorText}`);
         }
-
-        // طلب إذن الإشعارات
-        function requestNotificationPermission() {
-            if ("Notification" in window && Notification.permission !== "granted") {
-                Notification.requestPermission();
-            }
-        }
-
-        // ==================== منطق تسجيل الدخول ====================
-        document.getElementById('loginForm').addEventListener('submit', async (e) => {
-            e.preventDefault();
+        
+        const data = await response.json();
+        console.log('✅ Login response:', data);
+        
+        logDebug('Login Response:', data);
+        
+        if (data.access_token) {
+            userToken = data.access_token;
+            currentUser = username;
             
-            const username = document.getElementById('username').value.trim();
-            const password = document.getElementById('password').value;
-            const btnText = document.getElementById('btnText');
-            const loader = document.getElementById('loginLoader');
+            showMessage('✅ تم تسجيل الدخول بنجاح!', 'success');
+            
+            // حفظ في localStorage
+            localStorage.setItem('earthlink_token', userToken);
+            localStorage.setItem('earthlink_user', currentUser);
+            localStorage.setItem('earthlink_time', Date.now());
+            
+            // تحميل البيانات
+            setTimeout(() => loadUserData(), 500);
+        } else {
+            throw new Error('لم يتم استلام توكن');
+        }
+        
+    } catch (error) {
+        console.error('❌ Login error:', error);
+        showMessage(`❌ ${error.message}`, 'error');
+        logDebug('Login Error:', { message: error.message, stack: error.stack });
+    } finally {
+        btn.disabled = false;
+        btn.innerHTML = '<i class="fas fa-sign-in-alt"></i> تسجيل الدخول';
+    }
+}
 
-            // UI Loading State
-            btnText.textContent = "جاري الاتصال...";
-            loader.style.display = "inline-block";
-
-            try {
-                // محاكاة تأخير شبكة بسيط لتحسين تجربة المستخدم
-                await new Promise(r => setTimeout(r, 500));
-
-                const response = await fetch(TOKEN_ENDPOINT, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded',
-                    },
-                    body: new URLSearchParams({
-                        'grant_type': 'password',
-                        'username': username,
-                        'password': password,
-                        'Logintype': '0'
-                    })
-                });
-
-                if (response.ok) {                    const data = await response.json();
-                    if (data.access_token) {
-                        // حفظ الجلسة
-                        const sessionData = {
-                            token: data.access_token,
-                            username: username,
-                            timestamp: new Date().getTime()
-                        };
-                        localStorage.setItem(STORAGE_KEY_SESSION, JSON.stringify(sessionData));
-                        
-                        showMessage("✅ تم تسجيل الدخول بنجاح", "success");
-                        loadDashboard(sessionData.token);
-                    } else {
-                        throw new Error("لم يتم استلام توكن صالح");
-                    }
-                } else {
-                    const errData = await response.json();
-                    throw new Error(errData.error_description || "بيانات الدخول غير صحيحة");
-                }
-
-            } catch (error) {
-                showMessage(`❌ ${error.message}`, "error");
-                btnText.textContent = "تسجيل الدخول";
-                loader.style.display = "none";
+// جلب بيانات المستخدم - مطابق لـ Python
+async function loadUserData() {
+    if (!userToken) {
+        userToken = localStorage.getItem('earthlink_token');
+    }
+        if (!userToken) {
+        showMessage('❌ لا يوجد توكن', 'error');
+        return;
+    }
+    
+    try {
+        console.log('📤 Fetching user data...');
+        console.log('URL:', API_BASE + '/GetUserDataAr');
+        console.log('Token:', userToken.substring(0, 20) + '...');
+        
+        const response = await fetch(API_BASE + '/GetUserDataAr', {
+            method: 'GET',
+            headers: {
+                'Authorization': 'Bearer ' + userToken,
+                'Content-Type': 'application/json'
             }
         });
-
-        // ==================== تحميل لوحة المعلومات ====================
-        async function loadDashboard(token, isRefresh = false) {
-            if (!isRefresh) {
-                document.getElementById('loginSection').style.display = 'none';
-                document.getElementById('dashboardSection').style.display = 'block';
-                document.getElementById('btnText').textContent = "تسجيل الدخول";
-                document.getElementById('loginLoader').style.display = "none";
-            }
-
-            try {
-                const response = await fetch(DATA_ENDPOINT, {
-                    method: 'GET',
-                    headers: {
-                        'Authorization': `Bearer ${token}`
-                    }
-                });
-
-                if (!response.ok) {
-                    if (response.status === 401) {
-                        logout(); // توكن منتهي
-                        return;
-                    }
-                    throw new Error("فشل جلب البيانات");                }
-
-                const data = await response.json();
-                updateUI(data);
-                
-                // حفظ البيانات محلياً للفحص لاحقاً
-                localStorage.setItem(STORAGE_KEY_DATA, JSON.stringify(data));
-                
-                // فحص التنبيهات
-                checkExpiryNotification(data);
-
-            } catch (error) {
-                console.error(error);
-                if (!isRefresh) showMessage("❌ خطأ في الاتصال بالسيرفر", "error");
-            }
+        
+        console.log('📥 Response status:', response.status);
+        
+        if (!response.ok) {
+            const errorText = await response.text();
+            console.error('❌ Error response:', errorText);
+            throw new Error(`HTTP ${response.status}`);
         }
+        
+        const data = await response.json();
+        console.log('✅ User data:', data);
+        
+        logDebug('User Data:', data, 'debugBox2');
+        
+        // عرض البيانات
+        displayUserData(data);
+        
+    } catch (error) {
+        console.error('❌ Load data error:', error);
+        showMessage(`❌ ${error.message}`, 'error');
+        logDebug('Data Load Error:', { message: error.message, stack: error.stack }, 'debugBox2');
+    }
+}
 
-        // ==================== تحديث الواجهة ====================
-        function updateUI(data) {
-            // دوال مساعدة لاستخراج القيم بأمان
-            const getVal = (path) => {
-                const keys = path.split('.');
-                let val = data;
-                for (let k of keys) {
-                    if (val && val[k] !== undefined) val = val[k];
-                    else return '-';
-                }
-                return val.value || val || '-';
-            };
+// عرض البيانات في الواجهة
+function displayUserData(data) {
+    console.log('📊 Displaying data...');
+    
+    // إخفاء الفورم وإظهار الداشبورد
+    document.getElementById('loginForm').style.display = 'none';
+    document.getElementById('dashboard').style.display = 'block';
+    
+    // استخراج القيم    const fullName = getValue(data, 'fullName');
+    const userID = getValue(data, 'userID');
+    const accountPrice = getValue(data, 'accountPrice');
+    const accountStatus = getValue(data, 'accountStatus');
+    const accountName = getValue(data, 'accountName');
+    const activeDaysLeft = getValue(data, 'activeDaysLeft');
+    const accountExpirationDate = getValue(data, 'accountExpirationDate');
+    const userIP = getValue(data, 'userIP');
+    const mobileNumber = getValue(data, 'mobileNumber');
+    const agentName = getValue(data, 'agentName');
+    
+    // ملء البيانات
+    document.getElementById('userName').textContent = 'مرحباً، ' + fullName;
+    document.getElementById('statPrice').textContent = accountPrice + ' د.ع';
+    document.getElementById('statType').textContent = accountName;
+    document.getElementById('statDays').textContent = activeDaysLeft;
+    document.getElementById('statusBadge').textContent = accountStatus;
+    
+    document.getElementById('detName').textContent = fullName;
+    document.getElementById('detUserID').textContent = userID;
+    document.getElementById('detExpDate').textContent = accountExpirationDate;
+    document.getElementById('detIP').textContent = userIP;
+    document.getElementById('detPhone').textContent = mobileNumber;
+    document.getElementById('detAgent').textContent = agentName;
+    
+    console.log('✅ Data displayed successfully');
+}
 
-            // تعبئة البيانات
-            document.getElementById('dashUserName').textContent = `مرحباً، ${getVal('fullName')}`;
-            document.getElementById('statPrice').textContent = `${getVal('accountPrice')} د.ع`;
-            document.getElementById('statType').textContent = getVal('accountName');
-            document.getElementById('statDays').textContent = getVal('activeDaysLeft');
-            
-            // الحالة
-            const statusEl = document.getElementById('dashStatus');
-            const statusText = getVal('accountStatus');
-            statusEl.textContent = statusText;
-            if (statusText.includes('نشط') || statusText.includes('Active')) {
-                statusEl.style.background = 'rgba(0, 184, 148, 0.2)';
-                statusEl.style.color = '#00b894';
-                statusEl.style.borderColor = '#00b894';
-            } else {
-                statusEl.style.background = 'rgba(255, 118, 117, 0.2)';
-                statusEl.style.color = '#ff7675';
-                statusEl.style.borderColor = '#ff7675';
-            }
-            // التفاصيل
-            document.getElementById('detName').textContent = getVal('fullName');
-            document.getElementById('detUserID').textContent = getVal('userID');
-            document.getElementById('detExpDate').textContent = getVal('accountExpirationDate');
-            document.getElementById('detIP').textContent = getVal('userIP');
-            document.getElementById('detPhone').textContent = getVal('mobileNumber');
-            document.getElementById('detAgent').textContent = getVal('agentName');
+function logout() {
+    localStorage.removeItem('earthlink_token');
+    localStorage.removeItem('earthlink_user');
+    localStorage.removeItem('earthlink_time');
+    userToken = null;
+    currentUser = null;
+    document.getElementById('dashboard').style.display = 'none';
+    document.getElementById('loginForm').style.display = 'block';
+    document.getElementById('username').value = '';
+    document.getElementById('password').value = '';
+    showMessage('✅ تم تسجيل الخروج', 'success');
+}
+
+function showMessage(text, type) {
+    const msg = document.getElementById('messageBox');
+    msg.textContent = text;
+    msg.className = 'message ' + type;
+    msg.style.display = 'block';
+    setTimeout(() => msg.style.display = 'none', 5000);
+}
+
+function logDebug(title, data, boxId = 'debugBox') {    const debugBox = document.getElementById(boxId);
+    if (debugBox.style.display === 'block') {
+        debugBox.innerHTML = `<strong style="color: #00cec9">${title}</strong>\n` + 
+                            JSON.stringify(data, null, 2);
+    }
+}
+
+function toggleDebug() {
+    const box1 = document.getElementById('debugBox');
+    const box2 = document.getElementById('debugBox2');
+    box1.style.display = box1.style.display === 'block' ? 'none' : 'block';
+    box2.style.display = box2.style.display === 'block' ? 'none' : 'block';
+}
+
+// التحقق من الجلسة المحفوظة عند التحميل
+window.onload = function() {
+    const savedToken = localStorage.getItem('earthlink_token');
+    const savedTime = localStorage.getItem('earthlink_time');
+    
+    if (savedToken && savedTime) {
+        const hoursPassed = (Date.now() - parseInt(savedTime)) / (1000 * 60 * 60);
+        if (hoursPassed < 24) {
+            userToken = savedToken;
+            currentUser = localStorage.getItem('earthlink_user');
+            showMessage('✅ جارٍ تحميل البيانات المحفوظة...', 'success');
+            setTimeout(() => loadUserData(), 1000);
+        } else {
+            localStorage.removeItem('earthlink_token');
+            localStorage.removeItem('earthlink_user');
+            localStorage.removeItem('earthlink_time');
         }
+    }
+};
+</script>
 
-        // ==================== نظام التنبيه الذكي ====================
-        function checkExpiryNotification(data) {
-            const expDateStr = data.accountExpirationDate?.value;
-            if (!expDateStr) return;
-
-            // تحويل التاريخ (يفترض أن السيرفر يرسل ISO String أو تاريخ قابل للقراءة)
-            // ملاحظة: قد يحتاج التاريخ للتعديل حسب صيغة EarthLink (غالباً YYYY-MM-DD HH:MM:SS)
-            const expDate = new Date(expDateStr);
-            const now = new Date();
-            const diffTime = expDate - now;
-            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); 
-
-            // إذا بقي يوم واحد أو أقل (وأكثر من 0)
-            if (diffDays <= 1 && diffDays > 0) {
-                showExpiryWarning(diffTime);
-                sendBrowserNotification("⚠️ تنبيه عاجل", `اشتراكك في EarthLink سينتهي خلال أقل من 24 ساعة! (${diffDays} يوم متبقي)`);
-            } else if (diffDays <= 0) {
-                // منتهي
-                document.getElementById('dashStatus').textContent = "منتهي الصلاحية";
-                document.getElementById('dashStatus').style.background = 'rgba(255, 118, 117, 0.2)';
-                document.getElementById('dashStatus').style.color = '#ff7675';
-            }
-        }
-
-        function showExpiryWarning(timeRemaining) {
-            const warningBox = document.getElementById('expiryWarning');
-            warningBox.style.display = 'block';
-
-            // تحديث العداد كل ثانية
-            const timerInterval = setInterval(() => {
-                const now = new Date();
-                const distance = timeRemaining - (now - new Date()); // حساب تقريبي
-
-                if (distance < 0) {
-                    clearInterval(timerInterval);
-                    warningBox.innerHTML = "<h4 style='color:red'>⛔ انتهت الصلاحية</h4>";
-                    return;
-                }
-
-                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-
-                document.getElementById('cdDays').innerText = days < 10 ? "0"+days : days;
-                document.getElementById('cdHours').innerText = hours < 10 ? "0"+hours : hours;
-                document.getElementById('cdMinutes').innerText = minutes < 10 ? "0"+minutes : minutes;
-                
-                // تحديث الوقت المتبقي للمتغير الأصلي للدقة
-                timeRemaining = distance; 
-            }, 1000);
-        }
-
-        function sendBrowserNotification(title, body) {
-            // التحقق مما إذا تم عرض التنبيه مؤخراً لتجنب الإزعاج (كل 6 ساعات مثلاً)
-            const lastCheck = localStorage.getItem(STORAGE_KEY_EXPIRY_CHECK);
-            const now = new Date().getTime();
-            
-            if (lastCheck && (now - lastCheck) < 6 * 60 * 60 * 1000) {
-                return; // تم الإرسال مؤخراً
-            }
-
-            if (Notification.permission === "granted") {
-                new Notification(title, {
-                    body: body,
-                    icon: "https://cdn-icons-png.flaticon.com/512/5968/5968866.png", // أيقونة عامة
-                    badge: "https://cdn-icons-png.flaticon.com/512/5968/5968866.png"
-                });
-                localStorage.setItem(STORAGE_KEY_EXPIRY_CHECK, now);
-            }
-        }
-
-        // ==================== إدارة الجلسة ====================
-        function checkSession() {
-            const session = localStorage.getItem(STORAGE_KEY_SESSION);
-            if (session) {
-                const data = JSON.parse(session);
-                // التحقق من صلاحية الجلسة (مثلاً 24 ساعة)
-                const hourMs = 3600000;
-                if (new Date().getTime() - data.timestamp < 24 * hourMs) {
-                    loadDashboard(data.token);
-                } else {
-                    logout();
-                }
-            }
-        }
-
-        function logout() {
-            localStorage.removeItem(STORAGE_KEY_SESSION);
-            localStorage.removeItem(STORAGE_KEY_DATA);
-            location.reload();
-        }
-        function showMessage(text, type) {
-            const box = document.getElementById('messageBox');
-            box.textContent = text;
-            box.className = `message-box msg-${type}`;
-            box.style.display = 'block';
-            
-            setTimeout(() => {
-                box.style.display = 'none';
-            }, 4000);
-        }
-
-    </script>
 </body>
 </html>
